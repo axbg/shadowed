@@ -1,5 +1,5 @@
 <template>
-    <img :src="require('~/assets/pictures/' + picture)" />
+    <img class="picture" :src="require('~/assets/pictures/' + picture)" />
 </template>
 
 <script lang="ts">
@@ -12,8 +12,15 @@ export default class PictureFrame extends Vue {
 
   constructor() {
     super();
-
-    console.log(this.picture);
   }
 }
 </script>
+
+<style>
+.picture {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+  cursor: pointer;
+}
+</style>
