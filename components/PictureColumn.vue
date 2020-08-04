@@ -38,12 +38,4 @@ export default class PictureColumn extends Vue {
     max-width: 50%;
   }
 }
-
-@media screen and (max-width: 600px) {
-  .column {
-    -ms-flex: 100%;
-    flex: 100%;
-    max-width: 100%;
-  }
-}
 </style>

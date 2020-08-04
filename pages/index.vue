@@ -1,7 +1,7 @@
 <template>
   <div>
     <Avatar />
-    <Gallery />
+    <Gallery :photosChunkSize="12" />
   </div>
 </template>
 
