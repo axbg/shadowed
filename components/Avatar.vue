@@ -1,7 +1,9 @@
 <template>
-    <div class="avatar-container">
-        <p class="avatar">avatar here</p>
-    </div>
+  <div class="avatar-container">
+    <p class="avatar">
+      avatar here
+    </p>
+  </div>
 </template>
 
 <style>

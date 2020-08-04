@@ -1,7 +1,14 @@
 <template>
-    <div class="column">
-        <PictureFrame v-for="(picture, index) in pictures" :key="index" :picture="picture" /> 
-    </div>
+  <div class="column">
+    <PictureFrame
+      v-for="(picture, index) in pictures"
+      :key="index"
+      :picture="picture"
+      :grayscaled="grayscaled"
+      @hovered="catchAndEmit('hovered')"
+      @unhovered="catchAndEmit('unhovered')"
+    />
+  </div>
 </template>
 
 <script lang="ts">
@@ -17,8 +24,11 @@ export default class PictureColumn extends Vue {
     @Prop({ type: Array, required: true })
     pictures!: string[];
 
-    constructor() {
-        super();
+    @Prop({ type: Boolean, required: true })
+    grayscaled: boolean = false;
+
+    catchAndEmit (event: string) {
+      this.$emit(event)
     }
 }
 </script>

@@ -1,9 +1,29 @@
 <template>
   <div class="container">
-    <PictureColumn :pictures="firstColumn"/> 
-    <PictureColumn :pictures="secondColumn" v-if="show2"/>
-    <PictureColumn :pictures="thirdColumn" v-if="show1"/>
-    <PictureColumn :pictures="fourthColumn" v-if="show2"/>
+    <PictureColumn
+      :pictures="firstColumn"
+      :grayscaled="grayscaled"
+      @hovered="triggerGrayscale(true)"
+      @unhovered="triggerGrayscale(false)"
+    />
+    <PictureColumn
+      :pictures="secondColumn"
+      :grayscaled="grayscaled"
+      @hovered="triggerGrayscale(true)"
+      @unhovered="triggerGrayscale(false)"
+    />
+    <PictureColumn
+      :pictures="thirdColumn"
+      :grayscaled="grayscaled"
+      @hovered="triggerGrayscale(true)"
+      @unhovered="triggerGrayscale(false)"
+    />
+    <PictureColumn
+      :pictures="fourthColumn"
+      :grayscaled="grayscaled"
+      @hovered="triggerGrayscale(true)"
+      @unhovered="triggerGrayscale(false)"
+    />
   </div>
 </template>
 
@@ -23,73 +43,75 @@ export default class Gallery extends Vue {
   fourthColumn: string[] = [];
   picturesTitles: string[] = [];
   currentChunk: number = 0;
-  currentWindowSize!: number;
-  show2: boolean = true;
-  show1: boolean = true;
+  grayscaled: boolean = false;
 
-  @Prop({type: Number, required: true})
+  @Prop({ type: Number, required: true })
   photosChunkSize!: number;
 
-  constructor() {
-    super();
+  created () {
+    this.initializePictures()
   }
 
-  created() {
-    this.initializePictures();
+  mounted () {
+    window.addEventListener('scroll', this.handleScroll)
   }
 
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll);
+  initializePictures () {
+    const pictures = require.context('~/assets/pictures', true, /^.*\.jpg$/)
+    this.picturesTitles = pictures.keys().map(key => key.substr(2))
+
+    this.splitIntoColumns()
   }
 
-  initializePictures() {
-    const pictures = require.context('~/assets/pictures', true, /^.*\.jpg$/);
-    this.picturesTitles = pictures.keys().map(key => key.substr(2));
+  handleScroll () {
+    const currentOffset = document.documentElement.scrollTop + window.innerHeight
+    const pageHeight = document.documentElement.offsetHeight
 
-    this.splitIntoColumns();
-  }
-
-  handleScroll() {
-    const currentOffset = document.documentElement.scrollTop + window.innerHeight;
-    const pageHeight = document.documentElement.offsetHeight;
-
-    if(currentOffset > 0.5 * pageHeight) {
-      this.splitIntoColumns();
+    if (currentOffset > 0.5 * pageHeight) {
+      this.splitIntoColumns()
     }
   }
 
-  splitIntoColumns() {
-    const currentSize = this.currentChunk * this.photosChunkSize;
-    const remainingPictures = this.picturesTitles.length - currentSize > this.photosChunkSize 
-      ? this.photosChunkSize : this.picturesTitles.length - currentSize;
+  triggerGrayscale (state: boolean) {
+    if (state) {
+      this.grayscaled = true
+    } else {
+      this.grayscaled = false
+    }
+  }
 
-    const remainder = remainingPictures % 4;
-    const divisibleLength = currentSize + remainingPictures - remainder;
+  splitIntoColumns () {
+    const currentSize = this.currentChunk * this.photosChunkSize
+    const remainingPictures = this.picturesTitles.length - currentSize > this.photosChunkSize
+      ? this.photosChunkSize : this.picturesTitles.length - currentSize
 
-    this.currentChunk++;
+    const remainder = remainingPictures % 4
+    const divisibleLength = currentSize + remainingPictures - remainder
 
-    for(let i = currentSize; i < divisibleLength; i += 4) {
-      this.firstColumn.push(this.picturesTitles[i]);
-      this.secondColumn.push(this.picturesTitles[i+1]);
-      this.thirdColumn.push(this.picturesTitles[i+2]);
-      this.fourthColumn.push(this.picturesTitles[i+3]);
+    this.currentChunk++
+
+    for (let i = currentSize; i < divisibleLength; i += 4) {
+      this.firstColumn.push(this.picturesTitles[i])
+      this.secondColumn.push(this.picturesTitles[i + 1])
+      this.thirdColumn.push(this.picturesTitles[i + 2])
+      this.fourthColumn.push(this.picturesTitles[i + 3])
     }
 
-    switch(remainder) {
+    switch (remainder) {
       case 3:
-        this.secondColumn.push(this.picturesTitles[divisibleLength + 2]);
+        this.secondColumn.push(this.picturesTitles[divisibleLength + 2])
       case 2:
-        this.thirdColumn.push(this.picturesTitles[divisibleLength + 1]);
+        this.thirdColumn.push(this.picturesTitles[divisibleLength + 1])
       case 1:
-        this.fourthColumn.push(this.picturesTitles[divisibleLength]);
-        break;
+        this.fourthColumn.push(this.picturesTitles[divisibleLength])
+        break
       default:
-        break;
+        break
     }
   }
 
-  destroyed() {
-    window.removeEventListener('scroll', this.handleScroll);
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -100,7 +122,7 @@ export default class Gallery extends Vue {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 5px;
+  padding: 0px 10px 10px 10px;
   align-items: baseline;
 }
 </style>

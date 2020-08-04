@@ -1,5 +1,11 @@
 <template>
-    <img class="picture" :src="require('~/assets/pictures/' + picture)" />
+  <img
+    class="picture"
+    :class="{grayscaled: grayscaled && !hovered}"
+    :src="require('~/assets/pictures/' + picture)"
+    @mouseover="hover"
+    @mouseleave="unhover"
+  >
 </template>
 
 <script lang="ts">
@@ -7,11 +13,22 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class PictureFrame extends Vue {
-  @Prop({type: String, required: true})
+  hovered: boolean = false;
+
+  @Prop({ type: Boolean, required: true })
+  grayscaled: boolean = false;
+
+  @Prop({ type: String, required: true })
   picture!: string;
 
-  constructor() {
-    super();
+  hover () {
+    this.hovered = true
+    this.$emit('hovered')
+  }
+
+  unhover () {
+    this.hovered = false
+    this.$emit('unhovered')
   }
 }
 </script>
@@ -22,5 +39,10 @@ export default class PictureFrame extends Vue {
   vertical-align: middle;
   width: 100%;
   cursor: pointer;
+  transition: all 1s ease;
+}
+
+.grayscaled {
+  filter: opacity(0);
 }
 </style>
