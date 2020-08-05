@@ -122,7 +122,7 @@ export default class Gallery extends Vue {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 0px 10px 10px 10px;
+  padding: 0px 10px 100px 10px;
   align-items: baseline;
 }
 </style>
