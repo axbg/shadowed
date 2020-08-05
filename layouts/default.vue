@@ -30,14 +30,6 @@ html {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: white;
-}
-
-::-webkit-scrollbar-thumb {
-  background: black;
+  width: 0px;
 }
 </style>

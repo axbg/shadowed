@@ -2,21 +2,28 @@
   <div
     class="frame"
     @mouseover="toggleHover(true)"
-    @mouseleave="toggleHover(false)">
+    @mouseleave="toggleHover(false)"
+  >
     <img
       class="picture"
-      :class="{grayscaled: grayscaled && !hovered}"
+      :class="{outOfFocus: outOfFocus && !hovered}"
       :src="require('~/assets/pictures/' + picture)"
       @click="toggleModal(true)"
     >
     <div class="photo-content" :class="{active: hovered}">
-      <p>{{frameInfo}}</p>
+      <p>{{ title }}</p>
     </div>
-    <div class="modal" v-if="modal">
-      <div class="modal-content">
+    <div v-if="modal" class="modal">
+      <div class="modal-content" @click="toggleModal(false)">
         <span class="close" @click="toggleModal(false)">&times;</span>
-        <img :src="require('~/assets/pictures/' + picture)" class="full-picture">
-        <p>{{frameInfo}}</p>
+        <img
+          :src="require('~/assets/pictures/' + picture)"
+          class="full-picture"
+          @click="preventDefault($event)"
+        >
+        <div class="picture-details" @click="preventDefault($event)">
+          <p>{{ title }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -29,26 +36,34 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 export default class PictureFrame extends Vue {
   hovered: boolean = false;
   modal: boolean = false;
-  frameInfo: string = "some exifs";
+  frameInfo: string = 'ex';
 
   @Prop({ type: Boolean, required: true })
-  grayscaled!: boolean;
+  outOfFocus!: boolean;
 
   @Prop({ type: String, required: true })
   picture!: string;
 
-  toggleHover(state: boolean) {
-    const event = state ? 'hovered' : 'unhovered';
-    this.$emit(event);
-    this.hovered = state;
+  get title () {
+    return this.picture.split('.')[1]
   }
-  
-  toggleModal(state: boolean) {
-    this.modal = state;
 
-    if(state == false) {
-      this.toggleHover(state);
+  toggleHover (state: boolean) {
+    const event = state ? 'hovered' : 'unhovered'
+    this.$emit(event)
+    this.hovered = state
+  }
+
+  toggleModal (state: boolean) {
+    this.modal = state
+
+    if (state === false) {
+      this.toggleHover(false)
     }
+  }
+
+  preventDefault (event: any) {
+    event.stopPropagation()
   }
 }
 </script>
@@ -66,11 +81,12 @@ export default class PictureFrame extends Vue {
   transition: all 1s ease;
 }
 
-.grayscaled {
+.outOfFocus {
   filter: opacity(0);
 }
 
 .photo-content {
+  display: block;
   position: absolute;
   background-color: #fefefe;
   padding: 20px;
@@ -85,25 +101,22 @@ export default class PictureFrame extends Vue {
 .active {
   z-index: 2;
   filter: opacity(1);
-  transition: all 3s ease;
+  transition: all 2.5s ease;
 }
 
 .modal {
-  position: fixed; 
-  z-index: 3; 
+  position: fixed;
+  z-index: 3;
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%; 
+  height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
 }
 
 .modal-content {
   background-color: #fefefe;
   text-align: center;
-  padding: 10px;
   border: 1px solid #888;
   width: 100%;
   height: 100%;
@@ -113,11 +126,21 @@ export default class PictureFrame extends Vue {
   max-width: 100%;
   max-height: 80%;
   margin-top: 2%;
+  padding: 20px;
+}
+
+.picture-details {
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  bottom: 5%;
 }
 
 .close {
+  display: none;
+  position: fixed;
+  right: 5px;
   color: #aaa;
-  float: right;
   font-size: 28px;
   font-weight: bold;
 }
@@ -127,5 +150,15 @@ export default class PictureFrame extends Vue {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  .photo-content {
+    display: none;
+  }
+
+  .close {
+    display: block;
+  }
 }
 </style>

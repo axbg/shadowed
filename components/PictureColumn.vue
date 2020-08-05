@@ -4,7 +4,7 @@
       v-for="(picture, index) in pictures"
       :key="index"
       :picture="picture"
-      :grayscaled="grayscaled"
+      :out-of-focus="outOfFocus"
       @hovered="catchAndEmit('hovered')"
       @unhovered="catchAndEmit('unhovered')"
     />
@@ -25,7 +25,7 @@ export default class PictureColumn extends Vue {
     pictures!: string[];
 
     @Prop({ type: Boolean, required: true })
-    grayscaled: boolean = false;
+    outOfFocus: boolean = false;
 
     catchAndEmit (event: string) {
       this.$emit(event)
@@ -38,7 +38,7 @@ export default class PictureColumn extends Vue {
   -ms-flex: 25%;
   flex: 25%;
   max-width: 25%;
-  padding: 0 4px;
+  padding: 0 6px;
 }
 
 @media screen and (max-width: 1000px) {

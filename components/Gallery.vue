@@ -2,25 +2,25 @@
   <div class="container">
     <PictureColumn
       :pictures="firstColumn"
-      :grayscaled="grayscaled"
+      :out-of-focus="outOfFocus"
       @hovered="triggerGrayscale(true)"
       @unhovered="triggerGrayscale(false)"
     />
     <PictureColumn
       :pictures="secondColumn"
-      :grayscaled="grayscaled"
+      :out-of-focus="outOfFocus"
       @hovered="triggerGrayscale(true)"
       @unhovered="triggerGrayscale(false)"
     />
     <PictureColumn
       :pictures="thirdColumn"
-      :grayscaled="grayscaled"
+      :out-of-focus="outOfFocus"
       @hovered="triggerGrayscale(true)"
       @unhovered="triggerGrayscale(false)"
     />
     <PictureColumn
       :pictures="fourthColumn"
-      :grayscaled="grayscaled"
+      :out-of-focus="outOfFocus"
       @hovered="triggerGrayscale(true)"
       @unhovered="triggerGrayscale(false)"
     />
@@ -43,7 +43,7 @@ export default class Gallery extends Vue {
   fourthColumn: string[] = [];
   picturesTitles: string[] = [];
   currentChunk: number = 0;
-  grayscaled: boolean = false;
+  outOfFocus: boolean = false;
 
   @Prop({ type: Number, required: true })
   photosChunkSize!: number;
@@ -59,6 +59,7 @@ export default class Gallery extends Vue {
   initializePictures () {
     const pictures = require.context('~/assets/pictures', true, /^.*\.jpg$/)
     this.picturesTitles = pictures.keys().map(key => key.substr(2))
+    this.picturesTitles.sort((a: string, b: string) => parseInt(b.split('.')[0]) - parseInt(a.split('.')[0]))
 
     this.splitIntoColumns()
   }
@@ -74,9 +75,9 @@ export default class Gallery extends Vue {
 
   triggerGrayscale (state: boolean) {
     if (state) {
-      this.grayscaled = true
+      this.outOfFocus = true
     } else {
-      this.grayscaled = false
+      this.outOfFocus = false
     }
   }
 
