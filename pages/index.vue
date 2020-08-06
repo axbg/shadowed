@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Avatar />
+    <Avatar logo="/logo.png" avatar="/logo.png" />
     <Gallery :photos-chunk-size="12" />
     <BackToTop />
   </div>

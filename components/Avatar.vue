@@ -1,24 +1,30 @@
 <template>
   <div
     class="avatar-container"
-    @mouseover="rmove = true"
-    @mouseout="rmove = false"
+    @mouseover="hovered = true"
+    @mouseout="hovered = false"
   >
     <div class="pic-container">
-      <img src="~/static/logo.png" class="avatar" :class="{rmove: rmove}">
+      <img :src="logo" class="avatar" :class="{rmove: hovered}">
     </div>
     <div class="pic-container">
-      <img src="~/static/logo.png" class="avatar" :class="{lmove: rmove}">
+      <img :src="avatar" class="avatar" :class="{lmove: hovered}">
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class Avatar extends Vue {
-  rmove: boolean = false;
+  hovered: boolean = false;
+
+  @Prop({ type: String, required: true })
+  logo!: string;
+
+  @Prop({ type: String, required: true })
+  avatar!: string;
 }
 </script>
 
