@@ -141,7 +141,7 @@ export default class PictureFrame extends Vue {
   position: fixed;
   right: 5px;
   color: #aaa;
-  font-size: 28px;
+  font-size: 25px;
   font-weight: bold;
 }
 

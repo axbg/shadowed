@@ -2,6 +2,7 @@
   <div>
     <Avatar />
     <Gallery :photos-chunk-size="12" />
+    <BackToTop />
   </div>
 </template>
 
@@ -9,11 +10,13 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import Gallery from '~/components/Gallery.vue'
 import Avatar from '~/components/Avatar.vue'
+import BackToTop from '~/components/BackToTop.vue'
 
 @Component({
   components: {
     Gallery,
-    Avatar
+    Avatar,
+    BackToTop
   }
 })
 export default class App extends Vue {
