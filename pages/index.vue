@@ -19,6 +19,5 @@ import BackToTop from '~/components/BackToTop.vue'
     BackToTop
   }
 })
-export default class App extends Vue {
-}
+export default class App extends Vue {}
 </script>

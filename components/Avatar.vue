@@ -5,10 +5,10 @@
     @mouseout="hovered = false"
   >
     <div class="pic-container">
-      <img :src="logo" class="avatar" :class="{rmove: hovered}">
+      <img :src="logo" class="avatar" :class="{ rmove: hovered }">
     </div>
     <div class="pic-container">
-      <img :src="avatar" class="avatar" :class="{lmove: hovered}">
+      <img :src="avatar" class="avatar" :class="{ lmove: hovered }">
     </div>
   </div>
 </template>
@@ -30,35 +30,45 @@ export default class Avatar extends Vue {
 
 <style>
 .avatar-container {
- position: relative;
- cursor: pointer;
- width: 200px;
- height: 120px;
- margin: 150px auto;
- text-align: center;
+  position: relative;
+  cursor: pointer;
+  width: 200px;
+  height: 120px;
+  margin: 150px auto;
+  text-align: center;
 }
 
 .pic-container {
- position: absolute;
- width: 100%;
+  position: absolute;
+  width: 100%;
 }
 
 .avatar {
- height: 120px;
- border-radius: 50%;
- transition: all 1s ease;
+  height: 120px;
+  border-radius: 50%;
+  transition: all 1s ease;
 }
 
 .rmove {
- transform: translate(56px);
+  transform: translate(56px);
 }
 
 .lmove {
- transform: translate(-56px);
+  transform: translate(-56px);
+}
+
+.bits {
+  transform: opacity(0);
+  transition: all 0.5s ease;
+}
+
+.active {
+  transform: opacity(1);
 }
 
 @media screen and (max-width: 1000px) {
-  .avatar-container, .avatar {
+  .avatar-container,
+  .avatar {
     height: 110px;
   }
 
@@ -76,7 +86,8 @@ export default class Avatar extends Vue {
 }
 
 @media screen and (max-width: 500px) {
-  .avatar-container, .avatar {
+  .avatar-container,
+  .avatar {
     height: 80px;
   }
 

@@ -6,37 +6,34 @@
   >
     <img
       class="picture"
-      :class="{outOfFocus: outOfFocus && !hovered}"
+      :class="{ outOfFocus: outOfFocus && !hovered }"
       :src="require('~/assets/pictures/' + picture)"
       @click="toggleModal(true)"
     >
-    <div class="photo-content" :class="{active: hovered}">
+    <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title }}</p>
     </div>
-    <div v-if="modal" class="modal">
-      <div class="modal-content" @click="toggleModal(false)">
-        <span class="close" @click="toggleModal(false)">&times;</span>
-        <img
-          :src="require('~/assets/pictures/' + picture)"
-          class="full-picture"
-          @click="preventDefault($event)"
-        >
-        <div class="picture-details" @click="preventDefault($event)">
-          <p>{{ title }}</p>
-        </div>
-      </div>
-    </div>
+    <Modal
+      :picture="picture"
+      :content="title"
+      :opened="modalOpened"
+      @closeModal="toggleModal(false)"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'nuxt-property-decorator'
+import Modal from '~/components/Modal.vue'
 
-@Component
+@Component({
+  components: {
+    Modal
+  }
+})
 export default class PictureFrame extends Vue {
   hovered: boolean = false;
-  modal: boolean = false;
-  frameInfo: string = 'ex';
+  modalOpened: boolean = false;
 
   @Prop({ type: Boolean, required: true })
   outOfFocus!: boolean;
@@ -55,15 +52,11 @@ export default class PictureFrame extends Vue {
   }
 
   toggleModal (state: boolean) {
-    this.modal = state
+    this.modalOpened = state
 
     if (state === false) {
       this.toggleHover(false)
     }
-  }
-
-  preventDefault (event: any) {
-    event.stopPropagation()
   }
 }
 </script>
@@ -95,7 +88,7 @@ export default class PictureFrame extends Vue {
   z-index: -2;
   text-align: center;
   filter: opacity(0);
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 
 .active {
@@ -104,61 +97,9 @@ export default class PictureFrame extends Vue {
   transition: all 2.5s ease;
 }
 
-.modal {
-  position: fixed;
-  z-index: 3;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-}
-
-.modal-content {
-  background-color: #fefefe;
-  text-align: center;
-  border: 1px solid #888;
-  width: 100%;
-  height: 100%;
-}
-
-.full-picture {
-  max-width: 100%;
-  max-height: 80%;
-  margin-top: 2%;
-  padding: 20px;
-}
-
-.picture-details {
-  width: 100%;
-  text-align: center;
-  position: fixed;
-  bottom: 5%;
-}
-
-.close {
-  display: none;
-  position: fixed;
-  right: 5px;
-  color: #aaa;
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 @media screen and (max-width: 1000px) {
   .photo-content {
     display: none;
-  }
-
-  .close {
-    display: block;
   }
 }
 </style>

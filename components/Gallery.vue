@@ -59,13 +59,17 @@ export default class Gallery extends Vue {
   initializePictures () {
     const pictures = require.context('~/assets/pictures', true, /^.*\.jpg$/)
     this.picturesTitles = pictures.keys().map(key => key.substr(2))
-    this.picturesTitles.sort((a: string, b: string) => parseInt(b.split('.')[0]) - parseInt(a.split('.')[0]))
+    this.picturesTitles.sort(
+      (a: string, b: string) =>
+        parseInt(b.split('.')[0]) - parseInt(a.split('.')[0])
+    )
 
     this.splitIntoColumns()
   }
 
   handleScroll () {
-    const currentOffset = document.documentElement.scrollTop + window.innerHeight
+    const currentOffset =
+      document.documentElement.scrollTop + window.innerHeight
     const pageHeight = document.documentElement.offsetHeight
 
     if (currentOffset > 0.5 * pageHeight) {
@@ -83,8 +87,10 @@ export default class Gallery extends Vue {
 
   splitIntoColumns () {
     const currentSize = this.currentChunk * this.photosChunkSize
-    const remainingPictures = this.picturesTitles.length - currentSize > this.photosChunkSize
-      ? this.photosChunkSize : this.picturesTitles.length - currentSize
+    const remainingPictures =
+      this.picturesTitles.length - currentSize > this.photosChunkSize
+        ? this.photosChunkSize
+        : this.picturesTitles.length - currentSize
 
     const remainder = remainingPictures % 4
     const divisibleLength = currentSize + remainingPictures - remainder

@@ -1,5 +1,6 @@
 <template>
-  <div class="back-to-top-container" @click="backToTop">
+  <div class="back-to-top-container" 
+    @click="backToTop">
     <svg
       aria-hidden="true"
       focusable="false"
@@ -28,23 +29,28 @@ export default class BackToTop extends Vue {
 
 <style>
 .back-to-top-container {
- width: 150px;
- margin: 0 auto;
- text-align: center;
- color: white;
- user-select: none;
+  width: 150px;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+  user-select: none;
 }
 
 .chevron {
- height: 25px;
- margin-bottom: 5px;
- cursor: pointer;
- color: black;
+  height: 25px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  color: black;
+  transition: all 0.5s ease;
+}
+
+.chevron:hover {
+  transform: translate(0px, -15px);
 }
 
 @media screen and (max-width: 600px) {
-    .chevron {
-        height: 20px;
-    }
+  .chevron {
+    height: 20px;
+  }
 }
 </style>

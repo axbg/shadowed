@@ -21,15 +21,15 @@ import PictureFrame from '~/components/PictureFrame.vue'
   }
 })
 export default class PictureColumn extends Vue {
-    @Prop({ type: Array, required: true })
-    pictures!: string[];
+  @Prop({ type: Array, required: true })
+  pictures!: string[];
 
-    @Prop({ type: Boolean, required: true })
-    outOfFocus: boolean = false;
+  @Prop({ type: Boolean, required: true })
+  outOfFocus: boolean = false;
 
-    catchAndEmit (event: string) {
-      this.$emit(event)
-    }
+  catchAndEmit (event: string) {
+    this.$emit(event)
+  }
 }
 </script>
 
