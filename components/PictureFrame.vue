@@ -75,7 +75,7 @@ export default class PictureFrame extends Vue {
 }
 
 .outOfFocus {
-  filter: opacity(0);
+  filter: opacity(5%);
 }
 
 .photo-content {
@@ -85,7 +85,6 @@ export default class PictureFrame extends Vue {
   padding: 20px;
   border: 1px solid #888;
   width: 100%;
-  z-index: -2;
   text-align: center;
   filter: opacity(0);
   transition: all 0.5s ease;
