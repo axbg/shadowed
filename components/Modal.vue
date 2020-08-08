@@ -60,7 +60,6 @@ export default class Modal extends Vue {
 .full-picture {
   max-width: 100%;
   max-height: 80%;
-  margin-top: 5%;
   padding: 20px;
 }
 
@@ -88,6 +87,10 @@ export default class Modal extends Vue {
 }
 
 @media screen and (max-width: 1000px) {
+  .full-picture {
+    margin-top: 5%;
+  }
+  
   .close {
     display: block;
   }

@@ -5,10 +5,10 @@
     @mouseout="hovered = false"
   >
     <div class="pic-container">
-      <img :src="logo" class="avatar" :class="{ rmove: hovered }">
+      <img :src="avatar" class="avatar" :class="{ rmove: hovered }">
     </div>
     <div class="pic-container">
-      <img :src="avatar" class="avatar" :class="{ lmove: hovered }">
+      <img :src="logo" class="avatar" :class="{ lmove: hovered }">
     </div>
   </div>
 </template>
