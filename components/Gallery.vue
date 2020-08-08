@@ -71,8 +71,7 @@ export default class Gallery extends Vue {
   }
 
   handleScroll () {
-    const currentOffset =
-      document.documentElement.scrollTop + window.innerHeight
+    const currentOffset = document.documentElement.scrollTop + window.innerHeight
     const pageHeight = document.documentElement.offsetHeight
 
     if (currentOffset > 0.5 * pageHeight) {

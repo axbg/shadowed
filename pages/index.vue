@@ -1,7 +1,7 @@
 <template>
   <div>
     <Avatar logo="/left_logo.png" avatar="/right_logo.png" />
-    <Gallery :photos-chunk-size="12" />
+    <Gallery :photos-chunk-size="20" />
     <BackToTop />
   </div>
 </template>
