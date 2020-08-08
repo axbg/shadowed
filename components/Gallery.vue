@@ -56,14 +56,17 @@ export default class Gallery extends Vue {
     window.addEventListener('scroll', this.handleScroll)
   }
 
+  shuffle(a: string[]) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
   initializePictures () {
     const pictures = require.context('~/assets/pictures', true, /^.*\.jpg$/)
-    this.picturesTitles = pictures.keys().map(key => key.substr(2))
-    this.picturesTitles.sort(
-      (a: string, b: string) =>
-        parseInt(b.split('.')[0]) - parseInt(a.split('.')[0])
-    )
-
+    this.picturesTitles = this.shuffle(pictures.keys().map(key => key.substr(2)))
     this.splitIntoColumns()
   }
 

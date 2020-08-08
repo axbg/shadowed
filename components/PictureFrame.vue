@@ -7,7 +7,7 @@
     <img
       class="picture"
       :class="{ outOfFocus: outOfFocus && !hovered }"
-      :src="require('~/assets/pictures/' + picture)"
+      :src="require('~/assets/thumbnails/' + picture)"
       @click="toggleModal(true)"
     >
     <div class="photo-content" :class="{ active: hovered }">
