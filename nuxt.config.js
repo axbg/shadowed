@@ -35,6 +35,7 @@ export default {
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    '@/plugins/v-lazy-image.js'
   ],
   /*
   ** Auto import components

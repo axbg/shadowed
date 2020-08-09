@@ -4,12 +4,13 @@
     @mouseover="toggleHover(true)"
     @mouseleave="toggleHover(false)"
   >
-    <img
-      class="picture"
-      :class="{ outOfFocus: outOfFocus && !hovered }"
-      :src="require('~/assets/thumbnails/' + picture)"
-      @click="toggleModal(true)"
-    >
+    <div @click="toggleModal(true)">
+      <v-lazy-image
+        class="picture"
+        :class="{ outOfFocus: outOfFocus && !hovered }"
+        :src="require('~/assets/thumbnails/' + picture)"
+      />
+    </div>
     <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title }}</p>
     </div>
@@ -72,6 +73,13 @@ export default class PictureFrame extends Vue {
   width: 100%;
   cursor: pointer;
   transition: all 1s ease;
+}
+
+.v-lazy-image {
+  opacity: 0;
+}
+.v-lazy-image-loaded {
+  opacity: 1;
 }
 
 .outOfFocus {

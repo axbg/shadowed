@@ -21,6 +21,7 @@ html {
 * {
   box-sizing: border-box;
   margin: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::-webkit-scrollbar {
