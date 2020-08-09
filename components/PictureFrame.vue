@@ -62,7 +62,7 @@ export default class PictureFrame extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 .frame {
   position: relative;
 }

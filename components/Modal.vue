@@ -2,9 +2,9 @@
   <div v-if="opened" class="modal">
     <div class="modal-content" @click="closeModal">
       <span class="close" @click="closeModal">&times;</span>
+      <img src="/loading.gif" class="loading">
       <v-lazy-image
         :src="require('~/assets/pictures/' + picture)"
-        src-placeholder="/loading.gif"
         class="full-picture"
         @click="preventDefault($event)" />
       <div class="picture-details" @click="preventDefault($event)">
@@ -19,6 +19,8 @@ import { Vue, Component, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class Modal extends Vue {
+  loaded: boolean = false;
+
   @Prop({ type: Boolean, required: true })
   opened: boolean = false;
 
@@ -57,6 +59,12 @@ export default class Modal extends Vue {
   height: 100%;
 }
 
+.loading {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
 .full-picture {
   max-width: 100%;
   max-height: 80%;
@@ -64,10 +72,12 @@ export default class Modal extends Vue {
 }
 
 .v-lazy-image {
+  opacity: 0;
   filter: blur(10px);
   transition: filter 0.7s;
 }
 .v-lazy-image-loaded {
+  opacity: 1;
   filter: blur(0);
 }
 
