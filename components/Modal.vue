@@ -2,11 +2,13 @@
   <div v-if="opened" class="modal">
     <div class="modal-content" @click="closeModal">
       <span class="close" @click="closeModal">&times;</span>
-      <img src="/loading.gif" class="loading">
-      <v-lazy-image
-        :src="require('~/assets/pictures/' + picture)"
-        class="full-picture"
-        @click="preventDefault($event)" />
+      <div class="image-container">
+        <img src="/loading.gif" class="loading">
+        <v-lazy-image
+          :src="require('~/assets/pictures/' + picture)"
+          class="full-picture"
+          @click="preventDefault($event)" />
+      </div>
       <div class="picture-details" @click="preventDefault($event)">
         <p>{{ content }}</p>
       </div>
@@ -59,16 +61,24 @@ export default class Modal extends Vue {
   height: 100%;
 }
 
+.image-container {
+  height: 100%;
+}
+
 .loading {
-  position: fixed;
+  position: absolute;
   left: 50%;
-  transform: translate(-50%, 0);
+  top: 40%;
+  transform: translate(-50%,-50%);
 }
 
 .full-picture {
   max-width: 100%;
   max-height: 80%;
   padding: 20px;
+  position: relative;
+  top: 40%;
+  transform: translateY(-50%);
 }
 
 .v-lazy-image {
@@ -105,10 +115,6 @@ export default class Modal extends Vue {
 }
 
 @media screen and (max-width: 1000px) {
-  .full-picture {
-    margin-top: 5%;
-  }
-  
   .close {
     display: block;
   }
