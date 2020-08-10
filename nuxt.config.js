@@ -62,13 +62,14 @@ export default {
           set: '@fortawesome/free-brands-svg-icons',
           icons: ['faFacebook', 'faInstagram', 'faLinkedin', 'faGithub']
         }
-      ]}]
+      ]
+    }]
   ],
 
   pwa: {
     icon: {
-      iconSrc: `static/icon.png`,
-    },
+      iconSrc: 'static/icon.png'
+    }
   },
 
   manifest: {
@@ -78,7 +79,7 @@ export default {
     theme_color: 'white',
     background_color: 'white',
     orientation: 'portrait',
-    lang: 'en',
+    lang: 'en'
   },
   /*
   ** Content module configuration

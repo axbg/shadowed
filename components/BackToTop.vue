@@ -1,6 +1,8 @@
 <template>
-  <div class="back-to-top-container" 
-    @click="backToTop">
+  <div
+    class="back-to-top-container"
+    @click="backToTop"
+  >
     <svg
       aria-hidden="true"
       focusable="false"

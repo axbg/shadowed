@@ -1,5 +1,5 @@
 <template>
-  <div class="contact-container">
+  <div class="contact-container lazy-container" :class="{ loaded: loaded }">
     <a
       href="mailto:bisagalexstefan@gmail.com"
       title="Gmail"
@@ -22,7 +22,11 @@
       target="blank"
       class="icon"
     >
-      <v-lazy-image class="small" src="/encapsulated.png" alt="encapsulated" />
+      <v-lazy-image
+        src="/encapsulated.png"
+        alt="encapsulated"
+        @load="handleLoaded()"
+      />
     </a>
     <a
       href="https://github.com/axbg"
@@ -44,28 +48,39 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "nuxt-property-decorator";
+import { Vue, Component } from 'nuxt-property-decorator'
+
 import {
   faFacebook,
   faGoogle,
   faLinkedin,
   faGithub,
+  // eslint-disable-next-line import/named
   IconDefinition
-} from "@fortawesome/free-brands-svg-icons";
+} from '@fortawesome/free-brands-svg-icons'
 
 @Component
 export default class ContactRibbon extends Vue {
-  get faFacebook(): IconDefinition {
-    return faFacebook;
+  loaded: boolean = false;
+
+  get faFacebook (): IconDefinition {
+    return faFacebook
   }
-  get faGoogle(): IconDefinition {
-    return faGoogle;
+
+  get faGoogle (): IconDefinition {
+    return faGoogle
   }
-  get faLinkedin(): IconDefinition {
-    return faLinkedin;
+
+  get faLinkedin (): IconDefinition {
+    return faLinkedin
   }
-  get faGithub(): IconDefinition {
-    return faGithub;
+
+  get faGithub (): IconDefinition {
+    return faGithub
+  }
+
+  handleLoaded () {
+    this.loaded = true
   }
 }
 </script>
@@ -86,16 +101,12 @@ export default class ContactRibbon extends Vue {
   transition: all 0.5s ease;
 }
 
-.small {
-  height: 35px;
-  transform: transition
-}
-
-.v-lazy-image {
+.lazy-container {
   opacity: 0;
   transition: all 0.7s ease;
 }
-.v-lazy-image-loaded {
+
+.loaded {
   opacity: 1;
 }
 

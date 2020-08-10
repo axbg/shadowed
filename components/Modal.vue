@@ -7,10 +7,11 @@
         <v-lazy-image
           :src="require('~/assets/' + picture)"
           class="full-picture"
-          @click="preventDefault($event)" />
+          @click="preventDefault($event)"
+        />
       </div>
       <div class="picture-details" @click="preventDefault($event)">
-        <slot></slot>
+        <slot />
       </div>
     </div>
   </div>
@@ -83,6 +84,7 @@ export default class Modal extends Vue {
   filter: blur(10px);
   transition: all 0.7s ease;
 }
+
 .v-lazy-image-loaded {
   opacity: 1;
   filter: blur(0);

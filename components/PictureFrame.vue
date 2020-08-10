@@ -17,8 +17,9 @@
     <Modal
       :picture="pictureLocation"
       :opened="modalOpened"
-      @closeModal="toggleModal(false)">
-        <p>{{ title }}</p>
+      @closeModal="toggleModal(false)"
+    >
+      <p>{{ title }}</p>
     </Modal>
   </div>
 </template>
@@ -46,8 +47,8 @@ export default class PictureFrame extends Vue {
     return this.picture.split('.')[1]
   }
 
-  get pictureLocation() {
-    return "pictures/" + this.picture;
+  get pictureLocation () {
+    return 'pictures/' + this.picture
   }
 
   toggleHover (state: boolean) {

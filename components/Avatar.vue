@@ -16,8 +16,9 @@
     <Modal
       picture="me.png"
       :opened="modalOpened"
-      @closeModal="toggleModal(false)">
-        <ContactRibbon />
+      @closeModal="toggleModal(false)"
+    >
+      <ContactRibbon />
     </Modal>
   </div>
 </template>
@@ -27,7 +28,12 @@ import { Vue, Component, Prop } from 'nuxt-property-decorator'
 import Modal from '~/components/Modal.vue'
 import ContactRibbon from '~/components/ContactRibbon.vue'
 
-@Component
+@Component({
+  components: {
+    Modal,
+    ContactRibbon
+  }
+})
 export default class Avatar extends Vue {
   hovered: boolean = false;
   modalOpened: boolean = false;
@@ -38,8 +44,8 @@ export default class Avatar extends Vue {
   @Prop({ type: String, required: true })
   avatar!: string;
 
-  toggleModal(state: boolean) {
-    this.modalOpened = state;
+  toggleModal (state: boolean) {
+    this.modalOpened = state
   }
 }
 </script>
