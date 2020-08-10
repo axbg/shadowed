@@ -1,30 +1,46 @@
 <template>
-  <div
-    class="avatar-container"
-    @mouseover="hovered = true"
-    @mouseout="hovered = false"
-  >
-    <div class="pic-container">
-      <img :src="avatar" class="avatar" :class="{ rmove: hovered }">
+  <div>
+    <div
+      class="avatar-container"
+      @mouseover="hovered = true"
+      @mouseout="hovered = false"
+      @click="toggleModal(true)"
+    >
+      <div class="pic-container">
+        <img :src="avatar" class="avatar" :class="{ rmove: hovered }">
+      </div>
+      <div class="pic-container">
+        <img :src="logo" class="avatar" :class="{ lmove: hovered }">
+      </div>
     </div>
-    <div class="pic-container">
-      <img :src="logo" class="avatar" :class="{ lmove: hovered }">
-    </div>
+    <Modal
+      picture="me.png"
+      :opened="modalOpened"
+      @closeModal="toggleModal(false)">
+        <ContactRibbon />
+    </Modal>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import Modal from '~/components/Modal.vue'
+import ContactRibbon from '~/components/ContactRibbon.vue'
 
 @Component
 export default class Avatar extends Vue {
   hovered: boolean = false;
+  modalOpened: boolean = false;
 
   @Prop({ type: String, required: true })
   logo!: string;
 
   @Prop({ type: String, required: true })
   avatar!: string;
+
+  toggleModal(state: boolean) {
+    this.modalOpened = state;
+  }
 }
 </script>
 

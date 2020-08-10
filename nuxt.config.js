@@ -54,7 +54,15 @@ export default {
   modules: [
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt/content
-    '@nuxt/content'
+    '@nuxt/content',
+    ['nuxt-fontawesome', {
+      component: 'fa',
+      imports: [
+        {
+          set: '@fortawesome/free-brands-svg-icons',
+          icons: ['faFacebook', 'faInstagram', 'faLinkedin', 'faGithub']
+        }
+      ]}]
   ],
 
   pwa: {
@@ -67,7 +75,7 @@ export default {
     name: 'shadowed',
     short_name: 'shadowed',
     description: 'lights & shadow',
-    theme_color: 'black',
+    theme_color: 'white',
     background_color: 'white',
     orientation: 'portrait',
     lang: 'en',

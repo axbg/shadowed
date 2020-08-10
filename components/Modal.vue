@@ -5,12 +5,12 @@
       <div class="image-container">
         <img src="/loading.gif" class="loading">
         <v-lazy-image
-          :src="require('~/assets/pictures/' + picture)"
+          :src="require('~/assets/' + picture)"
           class="full-picture"
           @click="preventDefault($event)" />
       </div>
       <div class="picture-details" @click="preventDefault($event)">
-        <p>{{ content }}</p>
+        <slot></slot>
       </div>
     </div>
   </div>
@@ -28,9 +28,6 @@ export default class Modal extends Vue {
 
   @Prop({ type: String, required: true })
   picture!: string;
-
-  @Prop({ type: String, required: true })
-  content!: string;
 
   closeModal () {
     this.$emit('closeModal')
