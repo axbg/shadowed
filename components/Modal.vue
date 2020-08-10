@@ -81,7 +81,7 @@ export default class Modal extends Vue {
 .v-lazy-image {
   opacity: 0;
   filter: blur(10px);
-  transition: filter 0.7s;
+  transition: all 0.7s ease;
 }
 .v-lazy-image-loaded {
   opacity: 1;

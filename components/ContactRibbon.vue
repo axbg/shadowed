@@ -1,6 +1,11 @@
 <template>
   <div class="contact-container">
-    <a href="mailto:bisagalexstefan@gmail.com" title="Gmail" target="blank" class="icon">
+    <a
+      href="mailto:bisagalexstefan@gmail.com"
+      title="Gmail"
+      target="blank"
+      class="icon"
+    >
       <fa :icon="faGoogle" />
     </a>
     <a
@@ -11,10 +16,20 @@
     >
       <fa :icon="faFacebook" />
     </a>
-    <a href="https://encapsulated.dev" title="encapsulated" target="blank" class="icon">
-        <img src="/encapsulated.png" alt="encapsulated" >
+    <a
+      href="https://encapsulated.dev"
+      title="encapsulated"
+      target="blank"
+      class="icon"
+    >
+      <v-lazy-image class="small" src="/encapsulated.png" alt="encapsulated" />
     </a>
-    <a href="https://github.com/axbg" title="Github" target="blank" class="icon">
+    <a
+      href="https://github.com/axbg"
+      title="Github"
+      target="blank"
+      class="icon"
+    >
       <fa :icon="faGithub" />
     </a>
     <a
@@ -57,25 +72,39 @@ export default class ContactRibbon extends Vue {
 
 <style scoped>
 .contact-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 75%;
-    max-width: 500px;
-    margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 75%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .icon {
-    font-size: 30px;
-    color: black;
-    transition: all 1s ease;
+  font-size: 30px;
+  color: black;
+  transition: all 0.5s ease;
 }
 
-.icon:hover, .icon:active {
-    color: black;
+.small {
+  height: 35px;
+  transform: transition
+}
+
+.v-lazy-image {
+  opacity: 0;
+  transition: all 0.7s ease;
+}
+.v-lazy-image-loaded {
+  opacity: 1;
+}
+
+.icon:hover,
+.icon:active {
+  color: black;
 }
 
 .icon:hover {
-    transform: 
+  transform: translate(0px, -15px);
 }
 </style>
