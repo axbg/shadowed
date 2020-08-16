@@ -3,7 +3,7 @@
     <a
       href="mailto:bisagalexstefan@gmail.com"
       title="Gmail"
-      target="blank"
+      target="_blank"
       class="icon"
     >
       <fa :icon="faGoogle" />
@@ -11,7 +11,7 @@
     <a
       href="https://www.facebook.com/bisagalex/"
       title="Facebook"
-      target="blank"
+      target="_blank"
       class="icon"
     >
       <fa :icon="faFacebook" />
@@ -19,7 +19,7 @@
     <a
       href="https://encapsulated.dev"
       title="encapsulated"
-      target="blank"
+      target="_blank"
       class="icon"
     >
       <v-lazy-image
@@ -31,7 +31,7 @@
     <a
       href="https://github.com/axbg"
       title="Github"
-      target="blank"
+      target="_blank"
       class="icon"
     >
       <fa :icon="faGithub" />
@@ -39,7 +39,7 @@
     <a
       href="https://www.linkedin.com/in/alexbisag/"
       title="LinkedIn"
-      target="blank"
+      target="_blank"
       class="icon"
     >
       <fa :icon="faLinkedin" />
