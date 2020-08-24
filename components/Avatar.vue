@@ -41,11 +41,31 @@ export default class Avatar extends Vue {
   @Prop({ type: String, required: true })
   logo!: string;
 
+  @Prop({ type: Number, required: true })
+  mobileWidth!: number;
+
   @Prop({ type: String, required: true })
   avatar!: string;
 
+  clickDebounce: any = null;
+
   toggleModal (state: boolean) {
-    this.modalOpened = state
+    if (state === true && window.innerWidth <= this.mobileWidth) {
+      if (this.clickDebounce) {
+        window.clearTimeout(this.clickDebounce)
+      }
+
+      this.clickDebounce = window.setTimeout(
+        () => (this.modalOpened = true),
+        1000
+      )
+    } else {
+      this.modalOpened = state
+    }
+  }
+
+  destroyed () {
+    window.clearTimeout(this.clickDebounce)
   }
 }
 </script>
