@@ -61,6 +61,7 @@ export default class Avatar extends Vue {
       )
     } else {
       this.modalOpened = state
+      this.hovered = state
     }
   }
 
