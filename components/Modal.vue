@@ -3,7 +3,7 @@
     <div class="modal-content" @click="closeModal">
       <span class="close" @click="closeModal">&times;</span>
       <div class="image-container">
-        <img src="/loading.gif" class="loading" />
+        <img src="/loading.gif" class="loading">
         <v-lazy-image
           :src="require('~/assets/' + picture)"
           class="full-picture"
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from "nuxt-property-decorator";
+import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
 
 @Component
 export default class Modal extends Vue {
@@ -30,21 +30,21 @@ export default class Modal extends Vue {
   @Prop({ type: String, required: true })
   picture!: string;
 
-  @Watch("opened")
-  onPropertyChanged(value: string, oldValue: string) {
+  @Watch('opened')
+  onPropertyChanged (value: string) {
     if (value) {
-      window.addEventListener("scroll", this.closeModal);
+      window.addEventListener('scroll', this.closeModal)
     } else {
-      window.removeEventListener("scroll", this.closeModal);
+      window.removeEventListener('scroll', this.closeModal)
     }
   }
 
-  closeModal() {
-    this.$emit("closeModal");
+  closeModal () {
+    this.$emit('closeModal')
   }
 
-  preventDefault(event: any) {
-    event.stopPropagation();
+  preventDefault (event: any) {
+    event.stopPropagation()
   }
 }
 </script>

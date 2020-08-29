@@ -1,7 +1,7 @@
 <template>
   <div
     class="frame"
-    :class="{hoveredFrame: hovered}"
+    :class="{ hoveredFrame: hovered }"
     @mouseover="toggleHover(true)"
     @mouseleave="toggleHover(false)"
   >
@@ -53,9 +53,11 @@ export default class PictureFrame extends Vue {
   }
 
   toggleHover (state: boolean) {
-    const event = state ? 'hovered' : 'unhovered'
-    this.$emit(event)
-    this.hovered = state
+    if (this.hovered !== state) {
+      const event = state ? 'hovered' : 'unhovered'
+      this.$emit(event)
+      this.hovered = state
+    }
   }
 
   toggleModal (state: boolean) {

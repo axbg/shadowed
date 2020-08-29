@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <div
-      class="avatar-container"
-      @mouseover="hovered = true"
-      @mouseout="hovered = false"
-      @click="toggleModal(true)"
-    >
-      <div class="pic-container">
+  <div
+    class="avatar-container"
+    @mouseover="toggleHover(true)"
+    @mouseleave="toggleHover(false)"
+  >
+    <div class="pic-container" @click="toggleModal(true)">
+      <div class="half">
         <img :src="avatar" class="avatar" :class="{ rmove: hovered }">
       </div>
-      <div class="pic-container">
+      <div class="half">
         <img :src="logo" class="avatar" :class="{ lmove: hovered }">
       </div>
     </div>
@@ -37,6 +36,7 @@ import ContactRibbon from '~/components/ContactRibbon.vue'
 export default class Avatar extends Vue {
   hovered: boolean = false;
   modalOpened: boolean = false;
+  clickDebounce: any = null;
 
   @Prop({ type: String, required: true })
   logo!: string;
@@ -46,8 +46,6 @@ export default class Avatar extends Vue {
 
   @Prop({ type: String, required: true })
   avatar!: string;
-
-  clickDebounce: any = null;
 
   toggleModal (state: boolean) {
     if (state === true && window.innerWidth <= this.mobileWidth) {
@@ -60,7 +58,12 @@ export default class Avatar extends Vue {
         1000
       )
     } else {
-      this.modalOpened = state
+      this.modalOpened = this.hovered = state
+    }
+  }
+
+  toggleHover (state: boolean) {
+    if (this.hovered !== state) {
       this.hovered = state
     }
   }
@@ -71,10 +74,9 @@ export default class Avatar extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 .avatar-container {
   position: relative;
-  cursor: pointer;
   width: 200px;
   height: 120px;
   margin: 150px auto;
@@ -82,6 +84,10 @@ export default class Avatar extends Vue {
 }
 
 .pic-container {
+  cursor: pointer;
+}
+
+.half {
   position: absolute;
   width: 100%;
 }
