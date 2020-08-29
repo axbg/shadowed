@@ -1,13 +1,14 @@
 <template>
   <div
     class="frame"
+    :class="{hoveredFrame: hovered}"
     @mouseover="toggleHover(true)"
     @mouseleave="toggleHover(false)"
   >
     <div @click="toggleModal(true)">
       <v-lazy-image
         class="picture"
-        :class="{ outOfFocus: outOfFocus && !hovered }"
+        :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered }"
         :src="require('~/assets/thumbnails/' + picture)"
       />
     </div>
@@ -72,12 +73,20 @@ export default class PictureFrame extends Vue {
   position: relative;
 }
 
+.hoveredFrame {
+  z-index: 2;
+}
+
 .picture {
   margin-top: 8px;
   vertical-align: middle;
   width: 100%;
   cursor: pointer;
   transition: all 1s ease;
+}
+
+.hoveredPicture {
+  transform: scale(1.1);
 }
 
 .v-lazy-image {
@@ -88,7 +97,7 @@ export default class PictureFrame extends Vue {
 }
 
 .outOfFocus {
-  filter: opacity(5%);
+  filter: opacity(30%) grayscale(100%);
 }
 
 .photo-content {
@@ -106,7 +115,7 @@ export default class PictureFrame extends Vue {
 .active {
   z-index: 2;
   filter: opacity(1);
-  transition: all 2.5s ease;
+  transition: all 1.5s ease;
 }
 
 @media screen and (max-width: 1000px) {
