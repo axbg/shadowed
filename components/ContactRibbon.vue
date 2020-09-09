@@ -9,12 +9,12 @@
       <fa :icon="faGoogle" />
     </a>
     <a
-      href="https://www.facebook.com/bisagalex/"
-      title="Facebook"
+      href="https://www.messenger.com/t/bisagalex"
+      title="Messenger"
       target="_blank"
       class="icon"
     >
-      <fa :icon="faFacebook" />
+      <fa :icon="faFacebookMessenger" />
     </a>
     <a
       href="https://encapsulated.dev"
@@ -51,7 +51,7 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 
 import {
-  faFacebook,
+  faFacebookMessenger,
   faGoogle,
   faLinkedin,
   faGithub,
@@ -63,8 +63,8 @@ import {
 export default class ContactRibbon extends Vue {
   loaded: boolean = false;
 
-  get faFacebook (): IconDefinition {
-    return faFacebook
+  get faFacebookMessenger (): IconDefinition {
+    return faFacebookMessenger
   }
 
   get faGoogle (): IconDefinition {
