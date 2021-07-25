@@ -131,7 +131,13 @@ export default class Gallery extends Vue {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding: 0px 10px 100px 10px;
+  padding: 0px 35px 100px;
   align-items: baseline;
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    padding: 0px 10px 100px;
+  }
 }
 </style>
