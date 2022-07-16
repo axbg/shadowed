@@ -87,8 +87,16 @@ export default class PictureFrame extends Vue {
   transition: all 1s ease;
 }
 
+.dark-mode .picture {
+  filter: opacity(80%) grayscale(100%);
+}
+
 .hoveredPicture {
   transform: scale(1.1);
+}
+
+.dark-mode .hoveredPicture {
+  filter: opacity(80%) grayscale(0%);
 }
 
 .v-lazy-image {
@@ -112,6 +120,10 @@ export default class PictureFrame extends Vue {
   text-align: center;
   filter: opacity(0);
   transition: all 0.5s ease;
+}
+
+.dark-mode .photo-content {
+  background-color: black;
 }
 
 .active {

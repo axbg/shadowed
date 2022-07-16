@@ -46,6 +46,10 @@ export default class BackToTop extends Vue {
   transition: all 0.5s ease;
 }
 
+.dark-mode .chevron {
+  color: white;
+}
+
 .chevron:hover {
   transform: translate(0px, -15px);
 }

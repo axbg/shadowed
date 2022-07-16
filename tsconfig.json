@@ -26,7 +26,8 @@
     "types": [
       "@types/node",
       "@nuxt/types",
-      "@types/webpack-env"
+      "@types/webpack-env",
+      "@nuxtjs/color-mode"
     ]
   },
   "exclude": [

@@ -68,6 +68,14 @@ export default class Modal extends Vue {
   height: 100%;
 }
 
+.dark-mode .modal-content {
+  background-color: black;
+  text-align: center;
+  border: 1px solid #888;
+  width: 100%;
+  height: 100%;
+}
+
 .image-container {
   height: 100%;
 }
@@ -115,11 +123,19 @@ export default class Modal extends Vue {
   font-weight: bold;
 }
 
+.dark-mode .close {
+  color: white;
+}
+
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.dark-mode .close:hover, .close:focus {
+  color: #aaa;
 }
 
 @media screen and (max-width: 1000px) {
