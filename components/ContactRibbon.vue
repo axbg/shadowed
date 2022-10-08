@@ -9,14 +9,6 @@
       <fa :icon="faGoogle" />
     </a>
     <a
-      href="https://www.messenger.com/t/bisagalex"
-      title="Messenger"
-      target="_blank"
-      class="icon"
-    >
-      <fa :icon="faFacebookMessenger" />
-    </a>
-    <a
       href="https://encapsulated.dev"
       title="encapsulated"
       target="_blank"
@@ -35,14 +27,6 @@
       class="icon"
     >
       <fa :icon="faGithub" />
-    </a>
-    <a
-      href="https://www.linkedin.com/in/alexbisag/"
-      title="LinkedIn"
-      target="_blank"
-      class="icon"
-    >
-      <fa :icon="faLinkedin" />
     </a>
   </div>
 </template>
