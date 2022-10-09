@@ -15,7 +15,14 @@
       class="icon"
     >
       <v-lazy-image
+        v-if="this.$colorMode.value === 'light'"
         src="/encapsulated.png"
+        alt="encapsulated"
+        @load="handleLoaded()"
+      />
+      <v-lazy-image
+        v-if="this.$colorMode.value === 'dark'"
+        src="/encapsulated_dark.png"
         alt="encapsulated"
         @load="handleLoaded()"
       />
@@ -85,6 +92,10 @@ export default class ContactRibbon extends Vue {
   transition: all 0.5s ease;
 }
 
+.dark-mode .icon {
+  color: var(--white-color);
+}
+
 .lazy-container {
   opacity: 0;
   transition: all 0.7s ease;
@@ -92,11 +103,6 @@ export default class ContactRibbon extends Vue {
 
 .loaded {
   opacity: 1;
-}
-
-.icon:hover,
-.icon:active {
-  color: var(--black-color);
 }
 
 .icon:hover {
