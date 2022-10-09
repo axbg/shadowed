@@ -113,9 +113,9 @@ export default class PictureFrame extends Vue {
 .photo-content {
   display: block;
   position: absolute;
-  background-color: #fefefe;
+  background-color: var(--white-color);
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid var(--black-color);
   width: 100%;
   text-align: center;
   filter: opacity(0);
@@ -123,7 +123,7 @@ export default class PictureFrame extends Vue {
 }
 
 .dark-mode .photo-content {
-  background-color: black;
+  background-color: var(--black-color);
 }
 
 .active {

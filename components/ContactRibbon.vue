@@ -81,7 +81,7 @@ export default class ContactRibbon extends Vue {
 
 .icon {
   font-size: 30px;
-  color: black;
+  color: var(--black-color);
   transition: all 0.5s ease;
 }
 
@@ -96,7 +96,7 @@ export default class ContactRibbon extends Vue {
 
 .icon:hover,
 .icon:active {
-  color: black;
+  color: var(--black-color);
 }
 
 .icon:hover {

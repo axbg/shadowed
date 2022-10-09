@@ -40,6 +40,7 @@ export default class DarkMode extends Vue {
   top: 0;
   right: 0;
   padding: 20px;
+  margin-right: 5%;
 }
 
 .pointer {

@@ -34,15 +34,21 @@ export default class App extends Vue {
 </script>
 
 <style>
+:root {
+  --white-color: #F7F6F3;
+  --black-color: #121212;
+  --border-color: #888;
+}
+
 body {
   transition: background-color 1000ms linear;
-  background-color: white;
-  color: black;
+  background-color: var(--white-color);
+  color: var(--black-color);
 }
 
 .dark-mode body {
   transition: background-color 1000ms linear;
-  background-color: black;
-  color: white;
+  background-color: var(--black-color);
+  color: var(--white-color);
 }
 </style>
