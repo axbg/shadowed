@@ -13,7 +13,7 @@
       </div>
     </div>
     <Modal
-      picture="me.png"
+      :picture="computedProfile"
       :opened="modalOpened"
       @closeModal="toggleModal(false)"
     >
@@ -39,6 +39,7 @@ export default class Avatar extends Vue {
   clickDebounce: any = null;
   computedLogo: string = "";
   computedAvatar: string = "";
+  computedProfile: string = "";
 
   @Prop({ type: String, required: true })
   logo!: string;
@@ -48,6 +49,9 @@ export default class Avatar extends Vue {
 
   @Prop({ type: String, required: true })
   avatar!: string;
+
+  @Prop({ type: String, required: true })
+  profile!: string;
 
   mounted() {
     this.updateAssets();
@@ -62,9 +66,11 @@ export default class Avatar extends Vue {
     if (this.$colorMode.value === "dark") {
       this.computedLogo = "dark@" + this.logo;
       this.computedAvatar = "dark@" + this.avatar;
+      this.computedProfile = "dark@" + this.profile;
     } else {
       this.computedLogo = this.logo;
       this.computedAvatar = this.avatar;
+      this.computedProfile = this.profile;
     }
   }
 

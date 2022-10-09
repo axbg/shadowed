@@ -1,7 +1,7 @@
 <template>
   <div>
     <DarkMode @colorMode="updateColorMode" />
-    <Avatar logo="left_logo.png" avatar="right_logo.png" :mobile-width="1024" />
+    <Avatar logo="left_logo.png" avatar="right_logo.png" profile="me.png" :mobile-width="1024" />
     <Gallery :photos-chunk-size="20" />
     <BackToTop />
   </div>
