@@ -120,7 +120,7 @@ export default class Avatar extends Vue {
 }
 
 .avatar {
-  height: 120px;
+  height: 140px;
   border-radius: 50%;
   transition: all 1s ease;
 }

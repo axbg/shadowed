@@ -35,7 +35,7 @@ export default class App extends Vue {
 
 <style>
 :root {
-  --white-color: #F7F6F3;
+  --white-color: #EDEDED;
   --black-color: #121212;
   --border-color: #888;
 }
