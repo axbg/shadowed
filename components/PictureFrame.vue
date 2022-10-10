@@ -20,7 +20,7 @@
       :opened="modalOpened"
       @closeModal="toggleModal(false)"
     >
-      <p>{{ title }}</p>
+      <div><p class="detail-container">{{ title }}</p></div>
     </Modal>
   </div>
 </template>
@@ -87,8 +87,16 @@ export default class PictureFrame extends Vue {
   transition: all 1s ease;
 }
 
+.dark-mode .picture {
+  filter: opacity(80%) grayscale(100%);
+}
+
 .hoveredPicture {
   transform: scale(1.1);
+}
+
+.dark-mode .hoveredPicture {
+  filter: opacity(80%) grayscale(0%);
 }
 
 .v-lazy-image {
@@ -105,19 +113,36 @@ export default class PictureFrame extends Vue {
 .photo-content {
   display: block;
   position: absolute;
-  background-color: #fefefe;
+  background-color: var(--white-color);
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px groove var(--black-color);
   width: 100%;
   text-align: center;
   filter: opacity(0);
   transition: all 0.5s ease;
 }
 
+.dark-mode .photo-content {
+  bottom: 0;
+  background-color: var(--black-color);
+  border: 1px groove var(--white-color);
+}
+
 .active {
   z-index: 2;
   filter: opacity(1);
   transition: all 1.5s ease;
+}
+
+.detail-container {
+  border-bottom: 1px groove var(--black-color);
+  width: 25%;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.dark-mode .detail-container {
+  border-bottom: 1px groove var(--white-color);
 }
 
 @media screen and (max-width: 1000px) {

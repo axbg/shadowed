@@ -61,9 +61,17 @@ export default class Modal extends Vue {
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--white-color);
   text-align: center;
-  border: 1px solid #888;
+  border: 1px solid var(--border-color);
+  width: 100%;
+  height: 100%;
+}
+
+.dark-mode .modal-content {
+  background-color: var(--black-color);
+  text-align: center;
+  border: 1px solid var(--black-color);
   width: 100%;
   height: 100%;
 }
@@ -110,16 +118,24 @@ export default class Modal extends Vue {
   display: none;
   position: fixed;
   right: 5px;
-  color: #aaa;
+  color: var(--black-color);
   font-size: 25px;
   font-weight: bold;
 }
 
+.dark-mode .close {
+  color: var(--white-color);
+}
+
 .close:hover,
 .close:focus {
-  color: black;
+  color: var(--black-color);
   text-decoration: none;
   cursor: pointer;
+}
+
+.dark-mode .close:hover, .close:focus {
+  color: var(--white-color);
 }
 
 @media screen and (max-width: 1000px) {

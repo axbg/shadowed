@@ -15,7 +15,14 @@
       class="icon"
     >
       <v-lazy-image
+        v-if="this.$colorMode.value === 'light'"
         src="/encapsulated.png"
+        alt="encapsulated"
+        @load="handleLoaded()"
+      />
+      <v-lazy-image
+        v-if="this.$colorMode.value === 'dark'"
+        src="/encapsulated_dark.png"
         alt="encapsulated"
         @load="handleLoaded()"
       />
@@ -32,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component } from "nuxt-property-decorator";
 
 import {
   faFacebookMessenger,
@@ -40,31 +47,31 @@ import {
   faLinkedin,
   faGithub,
   // eslint-disable-next-line import/named
-  IconDefinition
-} from '@fortawesome/free-brands-svg-icons'
+  IconDefinition,
+} from "@fortawesome/free-brands-svg-icons";
 
 @Component
 export default class ContactRibbon extends Vue {
   loaded: boolean = false;
 
-  get faFacebookMessenger (): IconDefinition {
-    return faFacebookMessenger
+  get faFacebookMessenger(): IconDefinition {
+    return faFacebookMessenger;
   }
 
-  get faGoogle (): IconDefinition {
-    return faGoogle
+  get faGoogle(): IconDefinition {
+    return faGoogle;
   }
 
-  get faLinkedin (): IconDefinition {
-    return faLinkedin
+  get faLinkedin(): IconDefinition {
+    return faLinkedin;
   }
 
-  get faGithub (): IconDefinition {
-    return faGithub
+  get faGithub(): IconDefinition {
+    return faGithub;
   }
 
-  handleLoaded () {
-    this.loaded = true
+  handleLoaded() {
+    this.loaded = true;
   }
 }
 </script>
@@ -81,8 +88,12 @@ export default class ContactRibbon extends Vue {
 
 .icon {
   font-size: 30px;
-  color: black;
+  color: var(--black-color);
   transition: all 0.5s ease;
+}
+
+.dark-mode .icon {
+  color: var(--white-color);
 }
 
 .lazy-container {
@@ -92,11 +103,6 @@ export default class ContactRibbon extends Vue {
 
 .loaded {
   opacity: 1;
-}
-
-.icon:hover,
-.icon:active {
-  color: black;
 }
 
 .icon:hover {

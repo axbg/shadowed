@@ -34,7 +34,7 @@ export default class BackToTop extends Vue {
   width: 150px;
   margin: 0 auto;
   text-align: center;
-  color: white;
+  color: var(--white-color);
   user-select: none;
 }
 
@@ -42,8 +42,12 @@ export default class BackToTop extends Vue {
   height: 25px;
   margin-bottom: 5px;
   cursor: pointer;
-  color: black;
+  color: var(--black-color);
   transition: all 0.5s ease;
+}
+
+.dark-mode .chevron {
+  color: var(--white-color);
 }
 
 .chevron:hover {
