@@ -3,24 +3,28 @@
     <PictureColumn
       :pictures="firstColumn"
       :out-of-focus="outOfFocus"
+      :hardLink="hardLink"
       @hovered="triggerGrayscale(true)"
       @unhovered="triggerGrayscale(false)"
     />
     <PictureColumn
       :pictures="secondColumn"
       :out-of-focus="outOfFocus"
+      :hardLink="hardLink"
       @hovered="triggerGrayscale(true)"
       @unhovered="triggerGrayscale(false)"
     />
     <PictureColumn
       :pictures="thirdColumn"
       :out-of-focus="outOfFocus"
+      :hardLink="hardLink"
       @hovered="triggerGrayscale(true)"
       @unhovered="triggerGrayscale(false)"
     />
     <PictureColumn
       :pictures="fourthColumn"
       :out-of-focus="outOfFocus"
+      :hardLink="hardLink"
       @hovered="triggerGrayscale(true)"
       @unhovered="triggerGrayscale(false)"
     />
@@ -44,6 +48,7 @@ export default class Gallery extends Vue {
   picturesTitles: string[] = [];
   currentChunk: number = 0;
   outOfFocus: boolean = false;
+  hardLink: string = "";
 
   @Prop({ type: Number, required: true })
   photosChunkSize!: number;
@@ -54,6 +59,11 @@ export default class Gallery extends Vue {
 
   mounted () {
     window.addEventListener('scroll', this.handleScroll)
+    this.computeHardLink()
+  }
+
+  computeHardLink() {
+    return this.$route.hash;
   }
 
   shuffle (a: string[]) {
@@ -67,7 +77,19 @@ export default class Gallery extends Vue {
   initializePictures () {
     const pictures = require.context('~/assets/pictures', true, /^.*\.jpg$/)
     this.picturesTitles = this.shuffle(pictures.keys().map(key => key.substr(2)))
+
+    this.hardLink = this.computeHardLink();
+    if(this.hardLink) {
+      this.swapHardLinkedPicture(decodeURIComponent(this.hardLink.slice(2)));
+    }
+
     this.splitIntoColumns()
+  }
+
+  swapHardLinkedPicture(picture: string) {
+    const hardPicture = this.picturesTitles.indexOf(picture);
+    this.picturesTitles[hardPicture] = this.picturesTitles[0];
+    this.picturesTitles[0] = picture;
   }
 
   handleScroll () {
