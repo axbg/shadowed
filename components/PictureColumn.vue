@@ -4,6 +4,7 @@
       v-for="(picture, index) in pictures"
       :key="index"
       :picture="picture"
+      :hardLink="hardLink"
       :out-of-focus="outOfFocus"
       @hovered="catchAndEmit('hovered')"
       @unhovered="catchAndEmit('unhovered')"
@@ -26,6 +27,9 @@ export default class PictureColumn extends Vue {
 
   @Prop({ type: Boolean, required: true })
   outOfFocus: boolean = false;
+
+  @Prop({ type: String, required: true })
+  hardLink!: string;
 
   catchAndEmit (event: string) {
     this.$emit(event)

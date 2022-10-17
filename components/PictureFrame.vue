@@ -44,12 +44,21 @@ export default class PictureFrame extends Vue {
   @Prop({ type: String, required: true })
   picture!: string;
 
+  @Prop({ type: String, required: true })
+  hardLink!: string;
+
   get title () {
     return this.picture.split('.')[1]
   }
 
   get pictureLocation () {
     return 'pictures/' + this.picture
+  }
+
+  mounted() {
+    if(this.hardLink === this.getEncodedPicture()) {
+      this.toggleModal(true);
+    }
   }
 
   toggleHover (state: boolean) {
@@ -64,8 +73,15 @@ export default class PictureFrame extends Vue {
     this.modalOpened = state
 
     if (state === false) {
-      this.toggleHover(false)
+      this.toggleHover(false);
+      history.pushState({}, "", this.$route.path);
+    } else {
+      history.pushState({}, "", this.$route.path + this.getEncodedPicture());
     }
+  }
+
+  getEncodedPicture(): string {
+    return "#/" + encodeURIComponent(this.picture);
   }
 }
 </script>
