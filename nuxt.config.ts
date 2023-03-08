@@ -7,7 +7,6 @@ export default defineNuxtConfig({
     css: [
         '@fortawesome/fontawesome-svg-core/styles.css'
     ],
-
     pwa: {
         manifest: {
             name: 'shadowed',
@@ -21,5 +20,5 @@ export default defineNuxtConfig({
         meta: {
             title: 'shadowed'
         }
-      },
+      }
 })
