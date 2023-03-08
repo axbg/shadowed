@@ -4,11 +4,7 @@
       <span class="close" @click="closeModal">&times;</span>
       <div class="image-container">
         <img src="/loading.gif" class="loading">
-        <v-lazy-image
-          :src="require('~/assets/' + picture)"
-          class="full-picture"
-          @click="preventDefault($event)"
-        />
+        <img :src="getPicture()" class="full-picture" @click="preventDefault($event)" />
       </div>
       <div class="picture-details" @click="preventDefault($event)">
         <slot />
@@ -18,33 +14,28 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from 'nuxt-property-decorator'
 
-@Component
-export default class Modal extends Vue {
-  loaded: boolean = false;
-
-  @Prop({ type: Boolean, required: true })
-  opened: boolean = false;
-
-  @Prop({ type: String, required: true })
-  picture!: string;
-
-  @Watch('opened')
-  onPropertyChanged (value: string) {
-    if (value) {
-      window.addEventListener('scroll', this.closeModal)
-    } else {
-      window.removeEventListener('scroll', this.closeModal)
+export default {
+  props: ['opened', 'picture'],
+  watch: {
+    opened(oldValue, newValue) {
+      if (newValue) {
+        window.addEventListener('scroll', this.closeModal)
+      } else {
+        window.removeEventListener('scroll', this.closeModal)
+      }
     }
-  }
-
-  closeModal () {
-    this.$emit('closeModal')
-  }
-
-  preventDefault (event: any) {
-    event.stopPropagation()
+  },
+  methods: {
+    closeModal() {
+      this.$emit('closeModal')
+    },
+    getPicture() {
+      return new URL('../assets/' + this.picture, import.meta.url).href;
+    },
+    preventDefault(event: any) {
+      event.stopPropagation()
+    }
   }
 }
 </script>
@@ -134,7 +125,8 @@ export default class Modal extends Vue {
   cursor: pointer;
 }
 
-.dark-mode .close:hover, .close:focus {
+.dark-mode .close:hover,
+.close:focus {
   color: var(--white-color);
 }
 

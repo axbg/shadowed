@@ -1,77 +1,37 @@
 <template>
   <div class="contact-container lazy-container" :class="{ loaded: loaded }">
-    <a
-      href="mailto:bisagalexstefan@gmail.com"
-      title="Gmail"
-      target="_blank"
-      class="icon"
-    >
-      <fa :icon="faGoogle" />
+    <a href="mailto:bisagalexstefan@gmail.com" title="Gmail" target="_blank" class="icon">
+      <font-awesome-icon :icon="faGoogle()" />
     </a>
-    <a
-      href="https://encapsulated.dev"
-      title="encapsulated"
-      target="_blank"
-      class="icon"
-    >
-      <v-lazy-image
-        v-if="this.$colorMode.value === 'light'"
-        src="/encapsulated.png"
-        alt="encapsulated"
-        @load="handleLoaded()"
-      />
-      <v-lazy-image
-        v-if="this.$colorMode.value === 'dark'"
-        src="/encapsulated_dark.png"
-        alt="encapsulated"
-        @load="handleLoaded()"
-      />
+    <a href="https://encapsulated.dev" title="encapsulated" target="_blank" class="icon">
+      <img v-if="$colorMode.value === 'light'" src="/encapsulated.png" alt="encapsulated"
+        @load="handleLoaded()" />
+      <img v-if="$colorMode.value === 'dark'" src="/encapsulated_dark.png" alt="encapsulated"
+        @load="handleLoaded()" />
     </a>
-    <a
-      href="https://github.com/axbg"
-      title="Github"
-      target="_blank"
-      class="icon"
-    >
-      <fa :icon="faGithub" />
+    <a href="https://github.com/axbg" title="Github" target="_blank" class="icon">
+      <font-awesome-icon :icon="faGithub()" />
     </a>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "nuxt-property-decorator";
-
-import {
-  faFacebookMessenger,
-  faGoogle,
-  faLinkedin,
-  faGithub,
-  // eslint-disable-next-line import/named
-  IconDefinition,
-} from "@fortawesome/free-brands-svg-icons";
-
-@Component
-export default class ContactRibbon extends Vue {
-  loaded: boolean = false;
-
-  get faFacebookMessenger(): IconDefinition {
-    return faFacebookMessenger;
-  }
-
-  get faGoogle(): IconDefinition {
-    return faGoogle;
-  }
-
-  get faLinkedin(): IconDefinition {
-    return faLinkedin;
-  }
-
-  get faGithub(): IconDefinition {
-    return faGithub;
-  }
-
-  handleLoaded() {
-    this.loaded = true;
+export default {
+  data() {
+    return {
+      loaded: false,
+    }
+  },
+  methods: {
+    handleLoaded() {
+      this.loaded = true;
+    },
+    faGoogle(): string {
+      return 'fab fa-google';
+    },
+    faGithub(): string {
+      return 'fab fa-github';
+    }
   }
 }
 </script>

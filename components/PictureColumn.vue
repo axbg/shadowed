@@ -1,38 +1,19 @@
 <template>
   <div class="column">
-    <PictureFrame
-      v-for="(picture, index) in pictures"
-      :key="index"
-      :picture="picture"
-      :hardLink="hardLink"
-      :out-of-focus="outOfFocus"
-      @hovered="catchAndEmit('hovered')"
-      @unhovered="catchAndEmit('unhovered')"
-    />
+    <PictureFrame v-for="(picture, index) in pictures" :key="index" :picture="picture" :hardLink="hardLink"
+      :out-of-focus="outOfFocus" @hovered="catchAndEmit('hovered')" @unhovered="catchAndEmit('unhovered')" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
 import PictureFrame from '~/components/PictureFrame.vue'
 
-@Component({
-  components: {
-    PictureFrame
-  }
-})
-export default class PictureColumn extends Vue {
-  @Prop({ type: Array, required: true })
-  pictures!: string[];
-
-  @Prop({ type: Boolean, required: true })
-  outOfFocus: boolean = false;
-
-  @Prop({ type: String, required: true })
-  hardLink!: string;
-
-  catchAndEmit (event: string) {
-    this.$emit(event)
+export default {
+  props: ['pictures', 'outOfFocus', 'hardLink'],
+  methods: {
+    catchAndEmit(event: string) {
+      this.$emit(event);
+    }
   }
 }
 </script>

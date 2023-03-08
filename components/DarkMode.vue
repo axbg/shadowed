@@ -1,34 +1,25 @@
 <template>
   <div class="dark-mode-container">
     <p class="pointer" @click="triggerMode">
-      <fa :icon="icon" size="2x" shake />
+      <font-awesome-icon :icon="icon()" size="2x" />
     </p>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "nuxt-property-decorator";
-
-import {
-  faMoon,
-  faSun,
-  faSpinner,
-  IconDefinition,
-} from "@fortawesome/free-solid-svg-icons";
-
-@Component
-export default class DarkMode extends Vue {
-  triggerMode() {
-    this.$emit("colorMode");
-  }
-
-  get icon(): IconDefinition {
-    if (this.$colorMode.value === "dark") {
-      return faSun;
-    } else if (this.$colorMode.value === "light") {
-      return faMoon;
-    } else {
-      return faSpinner;
+export default {
+  methods: {
+    triggerMode() {
+      this.$emit("colorMode");
+    },
+    icon(): string {
+      if (this.$colorMode.value === "dark") {
+        return 'sun';
+      } else if (this.$colorMode.value === "light") {
+        return 'moon';
+      } else {
+        return 'spinner';
+      }
     }
   }
 }
