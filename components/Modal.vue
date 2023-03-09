@@ -4,7 +4,7 @@
       <span class="close" @click="closeModal">&times;</span>
       <div class="image-container">
         <img src="/loading.gif" class="loading">
-        <img :src="picture" class="full-picture" @click="preventDefault($event)" />
+        <img loading="lazy" :src="picture" class="full-picture" @click="preventDefault($event)" />
       </div>
       <div class="picture-details" @click="preventDefault($event)">
         <slot />

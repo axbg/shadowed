@@ -1,13 +1,12 @@
 <template>
   <div class="frame" :class="{ hoveredFrame: hovered }" @mouseover="toggleHover(true)" @mouseleave="toggleHover(false)">
     <div @click="toggleModal(true)">
-      <img class="picture" :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered }"
-        :src="thumbnail()"/>
+      <img class="picture" loading="lazy" :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered }" :src="thumbnail()" />
     </div>
     <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title() }}</p>
     </div>
-    <Modal :picture="picture.full" :opened="modalOpened" @closeModal="toggleModal(false)">
+    <Modal :picture="picture()" :opened="modalOpened" @closeModal="toggleModal(false)">
       <div>
         <p class="detail-container">{{ title() }}</p>
       </div>
@@ -36,7 +35,10 @@ export default {
       return this.picture.name.split(".")[1];
     },
     thumbnail() {
-      return new URL(this.picture.thumbnail, import.meta.url);
+      return this.picture.thumbnail;
+    },
+    picture() {
+      return this.picture.full;
     },
     toggleHover(state: boolean) {
       if (this.hovered !== state) {

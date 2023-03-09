@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-el>
+  <div class="container">
     <PictureColumn :pictures="firstColumn" :out-of-focus="outOfFocus" :hardLink="hardLink"
       @hovered="triggerGrayscale(true)" @unhovered="triggerGrayscale(false)" />
     <PictureColumn :pictures="secondColumn" :out-of-focus="outOfFocus" :hardLink="hardLink"
@@ -52,13 +52,10 @@ export default {
       return a
     },
     computePictureResources() {
-      const globImg = import.meta.glob('~/assets/pictures/full/*.jpg', { eager: true });
-      const images = Object.entries(globImg).map(([key, value]) => ({'name': filename(key), 'full': value.default}));
+      const images = import.meta.glob('~/assets/photos.json', { eager: true});
+      console.log(images);
 
-      const glob = import.meta.glob('~/assets/pictures/thumbnails/*.jpg', { eager: true });
-      const thumbnails = Object.entries(glob).map(([key, value]) => ({'name': filename(key), 'thumbnail': value.default}));
-
-      return images.map((item, i) => Object.assign({}, item, thumbnails.find(el => el.name === item.name)));
+      return [];
     }, 
     initializePictures() {
       let pictures = this.shuffle(this.computePictureResources());
@@ -69,7 +66,6 @@ export default {
       }
 
       this.picturesTitles = pictures;
-
       this.splitIntoColumns();
     },
     swapHardLinkedPicture(pictures: any[], picture: string) {
