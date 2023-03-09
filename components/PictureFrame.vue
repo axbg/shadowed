@@ -1,7 +1,10 @@
 <template>
   <div class="frame" :class="{ hoveredFrame: hovered }" @mouseover="toggleHover(true)" @mouseleave="toggleHover(false)">
     <div @click="toggleModal(true)">
-      <img class="picture" loading="lazy" :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered }" :src="thumbnail()" />
+      <img class="picture" :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered, show: isLoaded}" 
+      @load="imgLoaded()"
+      loading="lazy" 
+      :src="thumbnail()" />
     </div>
     <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title() }}</p>
@@ -22,7 +25,8 @@ export default {
   data() {
     return {
       hovered: false,
-      modalOpened: false
+      modalOpened: false,
+      isLoaded: false
     }
   },
   mounted() {
@@ -39,6 +43,9 @@ export default {
     },
     pictureSource() {
       return '/pictures/full/' + this.picture;
+    },
+    imgLoaded() {
+      this.isLoaded = true;
     },
     toggleHover(state: boolean) {
       if (this.hovered !== state) {
@@ -90,11 +97,11 @@ export default {
   filter: opacity(80%) grayscale(0%);
 }
 
-.v-lazy-image {
+img {
   opacity: 0;
 }
 
-.v-lazy-image-loaded {
+img.show {
   opacity: 1;
 }
 

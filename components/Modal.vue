@@ -4,7 +4,7 @@
       <span class="close" @click="closeModal">&times;</span>
       <div class="image-container">
         <img src="/loading.gif" class="loading">
-        <img loading="lazy" :src="picture" class="full-picture" @click="preventDefault($event)" />
+        <img loading="lazy" :src="picture" class="full-picture" :class="{ show: isLoaded }" @load="imgLoaded()" @click="preventDefault($event)" />
       </div>
       <div class="picture-details" @click="preventDefault($event)">
         <slot />
@@ -17,6 +17,11 @@
 
 export default {
   props: ['opened', 'picture'],
+  data() {
+    return {
+      isLoaded: false
+    }
+  },
   watch: {
     opened(oldValue, newValue) {
       if (newValue) {
@@ -28,11 +33,15 @@ export default {
   },
   methods: {
     closeModal() {
+      this.isLoaded = false;
       this.$emit('closeModal')
     },
     preventDefault(event: any) {
       event.stopPropagation()
-    }
+    },
+    imgLoaded() {
+      this.isLoaded = true;
+    },
   }
 }
 </script>
@@ -84,13 +93,13 @@ export default {
   transform: translateY(-50%);
 }
 
-.v-lazy-image {
+img {
   opacity: 0;
   filter: blur(10px);
   transition: all 0.7s ease;
 }
 
-.v-lazy-image-loaded {
+img.show {
   opacity: 1;
   filter: blur(0);
 }
