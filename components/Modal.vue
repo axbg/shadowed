@@ -4,7 +4,7 @@
       <span class="close" @click="closeModal">&times;</span>
       <div class="image-container">
         <img src="/loading.gif" class="loading">
-        <img loading="lazy" :src="picture" class="full-picture" :class="{ show: isLoaded }" @load="imgLoaded()" @click="preventDefault($event)" />
+        <img loading="lazy" :src="picture" class="full-picture hide-img-loading" :class="{ 'show-img-loaded': isLoaded }" @load="imgLoaded()" @click="preventDefault($event)" />
       </div>
       <div class="picture-details" @click="preventDefault($event)">
         <slot />
@@ -93,13 +93,13 @@ export default {
   transform: translateY(-50%);
 }
 
-img {
+.hide-img-loading {
   opacity: 0;
   filter: blur(10px);
   transition: all 0.7s ease;
 }
 
-img.show {
+.show-img-loaded {
   opacity: 1;
   filter: blur(0);
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="frame" :class="{ hoveredFrame: hovered }" @mouseover="toggleHover(true)" @mouseleave="toggleHover(false)">
     <div @click="toggleModal(true)">
-      <img class="picture" :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered, show: isLoaded}" 
+      <img class="picture hide-img-loading" :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered, 'show-img-loaded': isLoaded}" 
       @load="imgLoaded()"
       loading="lazy" 
       :src="thumbnail()" />
@@ -97,11 +97,11 @@ export default {
   filter: opacity(80%) grayscale(0%);
 }
 
-img {
+.hide-img-loading {
   opacity: 0;
 }
 
-img.show {
+.show-img-loaded {
   opacity: 1;
 }
 
