@@ -1,10 +1,9 @@
 <template>
   <div class="frame" :class="{ hoveredFrame: hovered }" @mouseover="toggleHover(true)" @mouseleave="toggleHover(false)">
     <div @click="toggleModal(true)">
-      <img class="picture hide-img-loading" :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered, 'show-img-loaded': isLoaded}" 
-      @load="imgLoaded()"
-      loading="lazy" 
-      :src="thumbnail()" />
+      <img class="picture hide-img-loading"
+        :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered, 'show-img-loaded': isLoaded }"
+        @load="imgLoaded()" loading="lazy" :src="thumbnail()" />
     </div>
     <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title() }}</p>
