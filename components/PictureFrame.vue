@@ -2,7 +2,7 @@
   <div class="frame" :class="{ hoveredFrame: hovered }" @mouseover="toggleHover(true)" @mouseleave="toggleHover(false)">
     <div @click="toggleModal(true)">
       <img class="picture" :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered }"
-        v-bind:src="thumbnail()"/>
+        :src="thumbnail()"/>
     </div>
     <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title() }}</p>
