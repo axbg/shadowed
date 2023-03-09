@@ -13,6 +13,7 @@
 
 <script lang="ts">
 import PictureColumn from '~/components/PictureColumn.vue'
+import { filename } from 'pathe/utils';
 
 export default {
   props: ['photosChunkSize'],
@@ -22,7 +23,7 @@ export default {
       secondColumn: [] as string[],
       thirdColumn: [] as string[],
       fourthColumn: [] as string[],
-      picturesTitles: [] as string[],
+      picturesTitles: [] as any[],
       currentChunk: 0,
       outOfFocus: false,
       hardLink: "" as string
@@ -43,28 +44,44 @@ export default {
       return this.$route.hash;
     },
 
-    shuffle(a: string[]) {
+    shuffle(a: any[]) {
       for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]]
       }
       return a
     },
-    async initializePictures() {
-      const pictures = await import.meta.glob('/assets/pictures/*.jpg');
-      this.picturesTitles = Object.keys(pictures).map(title => title.split("/")[3]);
+    computePictureResources() {
+      const globImg = import.meta.glob('~/assets/pictures/full/*.jpg', { eager: true });
+      const images = Object.entries(globImg).map(([key, value]) => ({'name': filename(key), 'full': value.default}));
+
+      const glob = import.meta.glob('~/assets/pictures/thumbnails/*.jpg', { eager: true });
+      const thumbnails = Object.entries(glob).map(([key, value]) => ({'name': filename(key), 'thumbnail': value.default}));
+
+      return images.map((item, i) => Object.assign({}, item, thumbnails.find(el => el.name === item.name)));
+    }, 
+    initializePictures() {
+      let pictures = this.shuffle(this.computePictureResources());
 
       this.hardLink = this.computeHardLink();
       if (this.hardLink) {
-        this.swapHardLinkedPicture(decodeURIComponent(this.hardLink.slice(2)));
+        pictures = this.swapHardLinkedPicture(pictures, decodeURIComponent(this.hardLink.slice(2)));
       }
 
-      this.splitIntoColumns()
+      this.picturesTitles = pictures;
+
+      this.splitIntoColumns();
     },
-    swapHardLinkedPicture(picture: string) {
-      const hardPicture = this.picturesTitles.indexOf(picture);
-      this.picturesTitles[hardPicture] = this.picturesTitles[0];
-      this.picturesTitles[0] = picture;
+    swapHardLinkedPicture(pictures: any[], picture: string) {
+      const cpy = pictures;
+
+      const hardPicture = cpy.findIndex(el => el.name === picture);
+
+      const aux = cpy[hardPicture]
+      cpy[hardPicture] = cpy[0];
+      cpy[0] = aux;
+
+      return cpy;
     },
     handleScroll() {
       const currentOffset = document.documentElement.scrollTop + window.innerHeight

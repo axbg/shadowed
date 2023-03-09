@@ -2,12 +2,12 @@
   <div class="frame" :class="{ hoveredFrame: hovered }" @mouseover="toggleHover(true)" @mouseleave="toggleHover(false)">
     <div @click="toggleModal(true)">
       <img class="picture" :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered }"
-        :src="getPicture()" />
+        v-bind:src="thumbnail()"/>
     </div>
     <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title() }}</p>
     </div>
-    <Modal :picture="pictureLocation()" :opened="modalOpened" @closeModal="toggleModal(false)">
+    <Modal :picture="picture.full" :opened="modalOpened" @closeModal="toggleModal(false)">
       <div>
         <p class="detail-container">{{ title() }}</p>
       </div>
@@ -33,13 +33,10 @@ export default {
   },
   methods: {
     title() {
-      return this.picture.split(".")[1];
+      return this.picture.name.split(".")[1];
     },
-    pictureLocation() {
-      return '/pictures/' + this.picture
-    },
-    getPicture() {
-      return new URL('../assets/thumbnails/' + this.picture, import.meta.url).href;
+    thumbnail() {
+      return new URL(this.picture.thumbnail, import.meta.url);
     },
     toggleHover(state: boolean) {
       if (this.hovered !== state) {
@@ -59,7 +56,7 @@ export default {
       }
     },
     getEncodedPicture(): string {
-      return "#/" + encodeURIComponent(this.picture);
+      return "#/" + this.picture.name;
     }
   }
 }

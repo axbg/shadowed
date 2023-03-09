@@ -4,7 +4,7 @@
       <span class="close" @click="closeModal">&times;</span>
       <div class="image-container">
         <img src="/loading.gif" class="loading">
-        <img :src="getPicture()" class="full-picture" @click="preventDefault($event)" />
+        <img :src="picture" class="full-picture" @click="preventDefault($event)" />
       </div>
       <div class="picture-details" @click="preventDefault($event)">
         <slot />
@@ -29,9 +29,6 @@ export default {
   methods: {
     closeModal() {
       this.$emit('closeModal')
-    },
-    getPicture() {
-      return new URL('../assets/' + this.picture, import.meta.url).href;
     },
     preventDefault(event: any) {
       event.stopPropagation()
