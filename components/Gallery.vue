@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-el>
     <PictureColumn :pictures="firstColumn" :out-of-focus="outOfFocus" :hardLink="hardLink"
       @hovered="triggerGrayscale(true)" @unhovered="triggerGrayscale(false)" />
     <PictureColumn :pictures="secondColumn" :out-of-focus="outOfFocus" :hardLink="hardLink"
@@ -26,7 +26,7 @@ export default {
       picturesTitles: [] as any[],
       currentChunk: 0,
       outOfFocus: false,
-      hardLink: "" as string
+      hardLink: "" as any
     }
   },
   created() {
@@ -41,9 +41,8 @@ export default {
   },
   methods: {
     computeHardLink() {
-      return this.$route.hash;
+      return this.$route.query.photo;
     },
-
     shuffle(a: any[]) {
       for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -52,32 +51,26 @@ export default {
       return a
     },
     computePictureResources() {
-      const images = import.meta.glob('~/assets/photos.json', { eager: true});
-      console.log(images);
-
-      return [];
-    }, 
+      const imagesResource = import.meta.glob('~/assets/photos.json', { eager: true });
+      const images: any = Object.entries(imagesResource).map(([key, value]) => ({ 'name': filename(key), 'content': value.default }))
+      return images[0]['content'];
+    },
     initializePictures() {
       let pictures = this.shuffle(this.computePictureResources());
 
       this.hardLink = this.computeHardLink();
       if (this.hardLink) {
-        pictures = this.swapHardLinkedPicture(pictures, decodeURIComponent(this.hardLink.slice(2)));
+        pictures = this.swapHardLinkedPicture(pictures, decodeURIComponent(this.hardLink));
       }
 
       this.picturesTitles = pictures;
       this.splitIntoColumns();
     },
     swapHardLinkedPicture(pictures: any[], picture: string) {
-      const cpy = pictures;
-
-      const hardPicture = cpy.findIndex(el => el.name === picture);
-
-      const aux = cpy[hardPicture]
-      cpy[hardPicture] = cpy[0];
-      cpy[0] = aux;
-
-      return cpy;
+      const hardPicture = pictures.indexOf(picture);
+      pictures[hardPicture] = pictures[0];
+      pictures[0] = picture;
+      return pictures;
     },
     handleScroll() {
       const currentOffset = document.documentElement.scrollTop + window.innerHeight

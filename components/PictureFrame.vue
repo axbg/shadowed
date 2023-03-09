@@ -6,7 +6,7 @@
     <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title() }}</p>
     </div>
-    <Modal :picture="picture()" :opened="modalOpened" @closeModal="toggleModal(false)">
+    <Modal :picture="pictureSource()" :opened="modalOpened" @closeModal="toggleModal(false)">
       <div>
         <p class="detail-container">{{ title() }}</p>
       </div>
@@ -26,19 +26,19 @@ export default {
     }
   },
   mounted() {
-    if (this.hardLink === this.getEncodedPicture()) {
+    if (this.hardLink === this.picture) {
       this.toggleModal(true);
     }
   },
   methods: {
     title() {
-      return this.picture.name.split(".")[1];
+      return this.picture.split(".")[1];
     },
     thumbnail() {
-      return this.picture.thumbnail;
+      return new URL('/pictures/thumbnails/' + this.picture, import.meta.url);
     },
-    picture() {
-      return this.picture.full;
+    pictureSource() {
+      return '/pictures/full/' + this.picture;
     },
     toggleHover(state: boolean) {
       if (this.hovered !== state) {
@@ -54,12 +54,9 @@ export default {
         this.toggleHover(false);
         history.pushState({}, "", this.$route.path);
       } else {
-        history.pushState({}, "", this.$route.path + this.getEncodedPicture());
+        history.pushState({}, "", this.$route.path + '?photo=' + this.picture);
       }
     },
-    getEncodedPicture(): string {
-      return "#/" + this.picture.name;
-    }
   }
 }
 </script>
