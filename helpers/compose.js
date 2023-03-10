@@ -13,7 +13,7 @@ fs.readdir(picturesPath, (err, files) => {
             return aNum - bNum;
         }).map(el => el);
 
-    fs.writeFileSync(outputPath, JSON.stringify(sortedPictures));
+    fs.writeFileSync(outputPath, JSON.stringify(sortedPictures), { flag: "w+" });
 
     console.log("helpers/compose.js: generated the dynamic list of pictures in assets/pictures.json")
 });
