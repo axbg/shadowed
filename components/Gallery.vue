@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-el>
+  <div class="container">
     <PictureColumn :pictures="firstColumn" :out-of-focus="outOfFocus" :hardLink="hardLink"
       @hovered="triggerGrayscale(true)" @unhovered="triggerGrayscale(false)" />
     <PictureColumn :pictures="secondColumn" :out-of-focus="outOfFocus" :hardLink="hardLink"
