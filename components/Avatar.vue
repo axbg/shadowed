@@ -8,7 +8,7 @@
         <img :src="computedLogo" class="avatar" :class="{ lmove: hovered }" />
       </div>
     </div>
-    <Modal :picture="computedProfile" :opened="modalOpened" @closeModal="toggleModal(false)">
+    <Modal :picture="computedProfile" :opened="modalOpened" :allowCopy="false" @closeModal="toggleModal(false)">
       <ContactRibbon />
     </Modal>
   </div>

@@ -8,7 +8,7 @@
     <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title() }}</p>
     </div>
-    <Modal :picture="pictureSource()" :opened="modalOpened" @closeModal="toggleModal(false)">
+    <Modal :picture="pictureSource()" :opened="modalOpened" :allowCopy="true" @closeModal="toggleModal(false)">
       <div>
         <p class="detail-container">{{ title() }}</p>
       </div>

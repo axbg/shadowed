@@ -4,8 +4,9 @@
       <span class="close" @click="closeModal">&times;</span>
       <div class="image-container">
         <img src="/loading.gif" class="loading">
-        <img loading="lazy" :src="picture" class="full-picture hide-img-loading" :class="{ 'show-img-loaded': isLoaded }"
-          @load="imgLoaded()" @click="preventDefault($event)" v-on:click="copyToClipboard()" />
+        <img loading="lazy" :src="picture" class="full-picture hide-img-loading"
+          :class="{ 'show-img-loaded': isLoaded, 'cursor-copy': allowCopy }" @load="imgLoaded()"
+          @click="preventDefault($event)" v-on:click="copyToClipboard()" />
       </div>
       <div class="picture-details" @click="preventDefault($event)">
         <slot />
@@ -19,7 +20,7 @@ import * as pkg from "vue-toastification"
 const { useToast } = pkg
 
 export default {
-  props: ['opened', 'picture'],
+  props: ['opened', 'picture', 'allowCopy'],
   data() {
     return {
       isLoaded: false
@@ -46,23 +47,25 @@ export default {
       this.isLoaded = true;
     },
     copyToClipboard() {
-      const pictureName = this.picture.split("/").pop();
-      const path = new URL(this.picture, import.meta.url).host + "/?photo=" + encodeURIComponent(pictureName);
-      navigator.clipboard.writeText(path);
+      if (this.allowCopy) {
+        const pictureName = this.picture.split("/").pop();
+        const path = new URL(this.picture, import.meta.url).origin + "/?photo=" + encodeURIComponent(pictureName);
+        navigator.clipboard.writeText(path);
 
-      useToast().success("Photo URL copied to clipboard!", {
-        timeout: 2000,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: false,
-        draggable: false,
-        draggablePercent: 0.6,
-        showCloseButtonOnHover: true,
-        hideProgressBar: true,
-        closeButton: false,
-        icon: false,
-        rtl: false
-      });
+        useToast().success("Photo URL copied to clipboard!", {
+          timeout: 2000,
+          closeOnClick: true,
+          pauseOnFocusLoss: true,
+          pauseOnHover: false,
+          draggable: false,
+          draggablePercent: 0.6,
+          showCloseButtonOnHover: true,
+          hideProgressBar: true,
+          closeButton: false,
+          icon: false,
+          rtl: false
+        });
+      }
     }
   }
 }
@@ -111,9 +114,12 @@ export default {
   max-height: 80%;
   padding: 20px;
   position: relative;
-  cursor: copy;
   top: 40%;
   transform: translateY(-50%);
+}
+
+.cursor-copy {
+  cursor: copy;
 }
 
 .hide-img-loading {
