@@ -89,5 +89,7 @@ sw.*
 # Vim swap files
 *.swp
 
+# generated content
 dist
 .output
+assets/pictures.json

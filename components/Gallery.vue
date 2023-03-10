@@ -51,7 +51,7 @@ export default {
       return a
     },
     computePictureResources() {
-      const imagesResource = import.meta.glob('~/assets/photos.json', { eager: true });
+      const imagesResource = import.meta.glob('~/assets/pictures.json', { eager: true });
       const images: any = Object.entries(imagesResource).map(([key, value]) => ({ 'name': filename(key), 'content': value.default }))
       return images[0]['content'];
     },

@@ -1,10 +1,11 @@
 {
   "private": true,
   "scripts": {
+    "compose": "node helpers/compose.js",
     "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "dev": "npm run compose && nuxt dev",
+    "generate": "npm run compose && nuxt generate",
+    "preview": "npm run compose && nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
