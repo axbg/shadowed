@@ -1,87 +1,68 @@
 <template>
-  <div
-    class="frame"
-    :class="{ hoveredFrame: hovered }"
-    @mouseover="toggleHover(true)"
-    @mouseleave="toggleHover(false)"
-  >
+  <div class="frame" :class="{ hoveredFrame: hovered }" @mouseover="toggleHover(true)" @mouseleave="toggleHover(false)">
     <div @click="toggleModal(true)">
-      <v-lazy-image
-        class="picture"
-        :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered }"
-        :src="require('~/assets/thumbnails/' + picture)"
-      />
+      <img class="picture hide-img-loading"
+        :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered, 'show-img-loaded': isLoaded }"
+        @load="imgLoaded()" loading="lazy" :src="thumbnail()" />
     </div>
     <div class="photo-content" :class="{ active: hovered }">
-      <p>{{ title }}</p>
+      <p>{{ title() }}</p>
     </div>
-    <Modal
-      :picture="pictureLocation"
-      :opened="modalOpened"
-      @closeModal="toggleModal(false)"
-    >
-      <div><p class="detail-container">{{ title }}</p></div>
+    <Modal :picture="pictureSource()" :opened="modalOpened" :allowCopy="true" @closeModal="toggleModal(false)">
+      <div>
+        <p class="detail-container">{{ title() }}</p>
+      </div>
     </Modal>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'nuxt-property-decorator'
-import Modal from '~/components/Modal.vue'
+import Modal from '~/components/Modal.vue';
 
-@Component({
-  components: {
-    Modal
-  }
-})
-export default class PictureFrame extends Vue {
-  hovered: boolean = false;
-  modalOpened: boolean = false;
-
-  @Prop({ type: Boolean, required: true })
-  outOfFocus!: boolean;
-
-  @Prop({ type: String, required: true })
-  picture!: string;
-
-  @Prop({ type: String, required: true })
-  hardLink!: string;
-
-  get title () {
-    return this.picture.split('.')[1]
-  }
-
-  get pictureLocation () {
-    return 'pictures/' + this.picture
-  }
-
+export default {
+  props: ['outOfFocus', 'picture', 'hardLink'],
+  data() {
+    return {
+      hovered: false,
+      modalOpened: false,
+      isLoaded: false
+    }
+  },
   mounted() {
-    if(this.hardLink === this.getEncodedPicture()) {
+    if (this.hardLink === this.picture) {
       this.toggleModal(true);
     }
-  }
+  },
+  methods: {
+    title() {
+      return this.picture.split(".")[1];
+    },
+    thumbnail() {
+      return new URL('/pictures/thumbnails/' + this.picture, import.meta.url);
+    },
+    pictureSource() {
+      return '/pictures/full/' + this.picture;
+    },
+    imgLoaded() {
+      this.isLoaded = true;
+    },
+    toggleHover(state: boolean) {
+      if (this.hovered !== state) {
+        const event = state ? 'hovered' : 'unhovered'
+        this.$emit(event)
+        this.hovered = state
+      }
+    },
+    toggleModal(state: boolean) {
+      this.modalOpened = state
 
-  toggleHover (state: boolean) {
-    if (this.hovered !== state) {
-      const event = state ? 'hovered' : 'unhovered'
-      this.$emit(event)
-      this.hovered = state
-    }
-  }
-
-  toggleModal (state: boolean) {
-    this.modalOpened = state
-
-    if (state === false) {
-      this.toggleHover(false);
-      history.pushState({}, "", this.$route.path);
-    } else {
-      history.pushState({}, "", this.$route.path + this.getEncodedPicture());
-    }
-  }
-
-  getEncodedPicture(): string {
-    return "#/" + encodeURIComponent(this.picture);
+      if (state === false) {
+        this.toggleHover(false);
+        history.pushState({}, "", this.$route.path);
+      } else {
+        history.pushState({}, "", this.$route.path + '?photo=' + this.picture);
+      }
+    },
   }
 }
 </script>
@@ -115,10 +96,11 @@ export default class PictureFrame extends Vue {
   filter: opacity(80%) grayscale(0%);
 }
 
-.v-lazy-image {
+.hide-img-loading {
   opacity: 0;
 }
-.v-lazy-image-loaded {
+
+.show-img-loaded {
   opacity: 1;
 }
 

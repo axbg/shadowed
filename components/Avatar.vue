@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="avatar-container"
-    @mouseover="toggleHover(true)"
-    @mouseleave="toggleHover(false)"
-  >
+  <div class="avatar-container" @mouseover="toggleHover(true)" @mouseleave="toggleHover(false)">
     <div class="pic-container" @click="toggleModal(true)">
       <div class="half">
         <img :src="computedAvatar" class="avatar" :class="{ rmove: hovered }" />
@@ -12,91 +8,70 @@
         <img :src="computedLogo" class="avatar" :class="{ lmove: hovered }" />
       </div>
     </div>
-    <Modal
-      :picture="computedProfile"
-      :opened="modalOpened"
-      @closeModal="toggleModal(false)"
-    >
+    <Modal :picture="computedProfile" :opened="modalOpened" :allowCopy="false" @closeModal="toggleModal(false)">
       <ContactRibbon />
     </Modal>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop, Watch } from "nuxt-property-decorator";
 import Modal from "~/components/Modal.vue";
 import ContactRibbon from "~/components/ContactRibbon.vue";
 
-@Component({
-  components: {
-    Modal,
-    ContactRibbon,
+export default {
+  props: ['logo', 'mobileWidth', 'avatar', 'profile'],
+  data() {
+    return {
+      hovered: false,
+      modalOpened: false,
+      clickDebounce: 0,
+      computedLogo: "",
+      computedAvatar: "",
+      computedProfile: ""
+    }
   },
-})
-export default class Avatar extends Vue {
-  hovered: boolean = false;
-  modalOpened: boolean = false;
-  clickDebounce: any = null;
-  computedLogo: string = "";
-  computedAvatar: string = "";
-  computedProfile: string = "";
-
-  @Prop({ type: String, required: true })
-  logo!: string;
-
-  @Prop({ type: Number, required: true })
-  mobileWidth!: number;
-
-  @Prop({ type: String, required: true })
-  avatar!: string;
-
-  @Prop({ type: String, required: true })
-  profile!: string;
-
   mounted() {
     this.updateAssets();
-  }
-
-  @Watch("$colorMode.value")
-  onPropertyChanged() {
-    this.updateAssets();
-  }
-
-  updateAssets() {
-    if (this.$colorMode.value === "dark") {
-      this.computedLogo = "dark@" + this.logo;
-      this.computedAvatar = "dark@" + this.avatar;
-      this.computedProfile = "dark@" + this.profile;
-    } else {
-      this.computedLogo = this.logo;
-      this.computedAvatar = this.avatar;
-      this.computedProfile = this.profile;
-    }
-  }
-
-  toggleModal(state: boolean) {
-    if (state === true && window.innerWidth <= this.mobileWidth) {
-      if (this.clickDebounce) {
-        window.clearTimeout(this.clickDebounce);
-      }
-
-      this.clickDebounce = window.setTimeout(
-        () => (this.modalOpened = true),
-        1000
-      );
-    } else {
-      this.modalOpened = this.hovered = state;
-    }
-  }
-
-  toggleHover(state: boolean) {
-    if (this.hovered !== state) {
-      this.hovered = state;
-    }
-  }
-
-  destroyed() {
+  },
+  unmounted() {
     window.clearTimeout(this.clickDebounce);
+  },
+  watch: {
+    '$colorMode.value': function () {
+      this.updateAssets();
+    }
+  },
+  methods: {
+    updateAssets() {
+      if (this.$colorMode.value === "dark") {
+        this.computedLogo = "dark@" + this.logo;
+        this.computedAvatar = "dark@" + this.avatar;
+        this.computedProfile = "dark@" + this.profile;
+      } else {
+        this.computedLogo = this.logo;
+        this.computedAvatar = this.avatar;
+        this.computedProfile = this.profile;
+      }
+    },
+    toggleModal(state: boolean) {
+      if (state === true && window.innerWidth <= this.mobileWidth) {
+        if (this.clickDebounce) {
+          window.clearTimeout(this.clickDebounce);
+        }
+
+        this.clickDebounce = window.setTimeout(
+          () => (this.modalOpened = true),
+          1000
+        );
+      } else {
+        this.modalOpened = this.hovered = state;
+      }
+    },
+    toggleHover(state: boolean) {
+      if (this.hovered !== state) {
+        this.hovered = state;
+      }
+    }
   }
 }
 </script>
@@ -143,6 +118,7 @@ export default class Avatar extends Vue {
 }
 
 @media screen and (max-width: 1000px) {
+
   .avatar-container,
   .avatar {
     height: 110px;
@@ -162,6 +138,7 @@ export default class Avatar extends Vue {
 }
 
 @media screen and (max-width: 500px) {
+
   .avatar-container,
   .avatar {
     height: 80px;

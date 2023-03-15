@@ -8,27 +8,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
 import Gallery from "~/components/Gallery.vue";
 import Avatar from "~/components/Avatar.vue";
 import BackToTop from "~/components/BackToTop.vue";
 import DarkMode from "~/components/DarkMode.vue";
 
-@Component({
-  components: {
-    Gallery,
-    Avatar,
-    BackToTop,
-    DarkMode,
-  },
-})
-export default class App extends Vue {
-  updateColorMode() {
+export default {
+  methods: {
+    updateColorMode() {
     if (this.$colorMode.value === "dark") {
       this.$colorMode.preference = "light";
     } else if (this.$colorMode.value === "light") {
       this.$colorMode.preference = "dark";
     }
+  }
   }
 }
 </script>

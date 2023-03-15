@@ -1,5 +1,42 @@
-# shadowed
-<img src="https://raw.githubusercontent.com/axbg/shadowed/master/static/icon.png?token=AF6UYGIYNGVUN67XB76H2T27HBIDC" height="200">
+# Nuxt 3 Minimal Starter
 
-### The source code behind [my photography blog](https://shadowed.site)
-#### The website is hosted on Netlify and it's powered by Nuxt.js
+Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+
+## Setup
+
+Make sure to install the dependencies:
+
+```bash
+# yarn
+yarn install
+
+# npm
+npm install
+
+# pnpm
+pnpm install
+```
+
+## Development Server
+
+Start the development server on http://localhost:3000
+
+```bash
+npm run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+npm run build
+```
+
+Locally preview production build:
+
+```bash
+npm run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

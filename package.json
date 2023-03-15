@@ -1,35 +1,23 @@
 {
-  "name": "shadowed",
-  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "compose": "node helpers/compose.js",
     "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore . --fix",
-    "lint": "npm run lint:js"
-  },
-  "dependencies": {
-    "@fortawesome/free-brands-svg-icons": "^5.14.4",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@nuxt/typescript-runtime": "^2.1.0",
-    "@nuxtjs/pwa": "^3.3.5",
-    "@types/webpack-env": "^1.16.3",
-    "nuxt": "^2.15.8",
-    "nuxt-fontawesome": "^0.4.0",
-    "nuxt-property-decorator": "^2.9.1",
-    "v-lazy-image": "^1.4.0"
+    "dev": "npm run compose && nuxt dev",
+    "generate": "npm run compose && nuxt generate",
+    "preview": "npm run compose && nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.16.0",
-    "@nuxt/types": "^2.15.8",
-    "@nuxt/typescript-build": "^2.1.0",
-    "@nuxtjs/color-mode": "^2.1.1",
-    "@nuxtjs/eslint-config": "^6.0.1",
-    "@nuxtjs/eslint-config-typescript": "^6.0.1",
-    "@nuxtjs/eslint-module": "^3.0.2",
-    "eslint": "^7.32.0",
-    "eslint-plugin-nuxt": "^3.0.0"
+    "@kevinmarrec/nuxt-pwa": "^0.17.0",
+    "@nuxtjs/color-mode": "^3.2.0",
+    "nuxt": "^3.2.3"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-brands-svg-icons": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "vue-toastification": "^2.0.0-rc.5"
   }
 }
