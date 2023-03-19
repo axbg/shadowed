@@ -13,8 +13,8 @@ export default defineNuxtConfig({
             name: 'shadowed',
             short_name: 'shadowed',
             description: 'lights & shadow',
-            theme_color: 'white',
-            background_color: 'white',
+            theme_color: 'black',
+            background_color: 'black',
             orientation: 'portrait',
             lang: 'en'
         },
