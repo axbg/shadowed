@@ -11,7 +11,7 @@
   "devDependencies": {
     "@kevinmarrec/nuxt-pwa": "^0.17.0",
     "@nuxtjs/color-mode": "^3.2.0",
-    "nuxt": "^3.4.2"
+    "nuxt": "^3.4.3"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
