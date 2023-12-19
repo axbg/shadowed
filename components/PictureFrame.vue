@@ -122,6 +122,7 @@ export default {
   text-align: center;
   filter: opacity(0);
   transition: all 0.5s ease;
+  user-select: none;
 }
 
 .dark-mode .photo-content {
