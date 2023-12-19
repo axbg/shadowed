@@ -108,6 +108,10 @@ export default {
   filter: opacity(30%) grayscale(100%);
 }
 
+.dark-mode .outOfFocus {
+  filter: opacity(10%) grayscale(100%);
+}
+
 .photo-content {
   display: block;
   position: absolute;
@@ -121,7 +125,6 @@ export default {
 }
 
 .dark-mode .photo-content {
-  bottom: 0;
   background-color: var(--black-color);
   border: 1px groove var(--white-color);
 }
