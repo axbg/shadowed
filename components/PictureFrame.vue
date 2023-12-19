@@ -93,7 +93,7 @@ export default {
 }
 
 .dark-mode .hoveredPicture {
-  filter: opacity(80%) grayscale(0%);
+  filter: opacity(100%) grayscale(0%);
 }
 
 .hide-img-loading {
