@@ -11,19 +11,52 @@ export default defineNuxtConfig({
         '@fortawesome/fontawesome-svg-core/styles.css'
     ],
     pwa: {
+        injectRegister: "auto",
+        registerType: 'autoUpdate',
         manifest: {
             name: 'shadowed',
             short_name: 'shadowed',
-            description: 'lights & shadow',
+            description: 'lights & shadows',
             theme_color: 'black',
             background_color: 'black',
             orientation: 'portrait',
-            lang: 'en'
+            lang: 'en',
+            icons: [
+                {
+                    src: '192.png',
+                    sizes: '192x192',
+                    type: 'image/png'
+                },
+                {
+                    src: '512.png',
+                    sizes: '512x512',
+                    type: 'image/png'
+                },
+                {
+                    src: '512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                    purpose: 'any'
+                },
+                {
+                    src: '512.png',
+                    sizes: '512x512',
+                    type: 'image/png',
+                    purpose: 'maskable'
+                }
+            ]
+        },
+        workbox: {
+            runtimeCaching: [
+                {
+                    urlPattern: "/",
+                    handler: 'NetworkFirst',
+                },
+            ]
+        },
+        registerWebManifestInRouteRules: true,
+        devOptions: {
+            enabled: true
         }
-    },
-    vite: {
-        plugins: [
-            VitePWA({ registerType: 'autoUpdate' })
-        ]
     }
 })
