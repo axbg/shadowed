@@ -17,6 +17,40 @@ export default defineNuxtConfig({
     pwa: {
         injectRegister: "auto",
         registerType: 'autoUpdate',
+        workbox: {
+            globPatterns: ['**/*.{js,css}'],
+            navigateFallback: null,
+            runtimeCaching: [
+                {
+                    urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.includes("thumbnails"),
+                    handler: 'CacheFirst',
+                    options: {
+                        cacheName: 'thumbnails',
+                        expiration: {
+                            maxEntries: 1000,
+                            maxAgeSeconds: 60 * 60 * 24 * 365
+                        },
+                        cacheableResponse: {
+                            statuses: [0, 200, 304]
+                        }
+                    }
+                },
+                {
+                    urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.includes("full"),
+                    handler: 'CacheFirst',
+                    options: {
+                        cacheName: 'full',
+                        expiration: {
+                            maxEntries: 10,
+                            maxAgeSeconds: 60 * 60 * 24 * 365
+                        },
+                        cacheableResponse: {
+                            statuses: [0, 200, 304]
+                        }
+                    }
+                }
+            ],
+        },
         manifest: {
             name: 'shadowed',
             short_name: 'shadowed',
@@ -55,6 +89,9 @@ export default defineNuxtConfig({
                 }
             ]
         },
-        registerWebManifestInRouteRules: true
+        registerWebManifestInRouteRules: true,
+        devOptions: {
+            enabled: true
+        }
     }
 })
