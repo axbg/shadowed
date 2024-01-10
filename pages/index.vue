@@ -16,12 +16,12 @@ import DarkMode from "~/components/DarkMode.vue";
 export default {
   methods: {
     updateColorMode() {
-    if (this.$colorMode.value === "dark") {
-      this.$colorMode.preference = "light";
-    } else if (this.$colorMode.value === "light") {
-      this.$colorMode.preference = "dark";
+      if (this.$colorMode.value === "dark") {
+        this.$colorMode.preference = "light";
+      } else if (this.$colorMode.value === "light") {
+        this.$colorMode.preference = "dark";
+      }
     }
-  }
   }
 }
 </script>

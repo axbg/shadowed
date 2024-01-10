@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     ],
     app: {
         head: {
-            link: [{ rel: 'icon', type: 'image/png', href: '/64.png' }]
+            link: [{ rel: 'icon', type: 'image/png', href: '/assets/64.png' }]
         }
     },
     css: [
@@ -22,12 +22,24 @@ export default defineNuxtConfig({
             navigateFallback: null,
             runtimeCaching: [
                 {
+                    urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.includes("assets"),
+                    handler: 'CacheFirst',
+                    options: {
+                        cacheName: 'assets',
+                        expiration: {
+                            maxAgeSeconds: 60 * 60 * 24 * 365
+                        },
+                        cacheableResponse: {
+                            statuses: [0, 200, 304]
+                        }
+                    }
+                },
+                {
                     urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.includes("thumbnails"),
                     handler: 'CacheFirst',
                     options: {
                         cacheName: 'thumbnails',
                         expiration: {
-                            maxEntries: 1000,
                             maxAgeSeconds: 60 * 60 * 24 * 365
                         },
                         cacheableResponse: {
@@ -61,28 +73,28 @@ export default defineNuxtConfig({
             lang: 'en',
             icons: [
                 {
-                    src: '64.png',
+                    src: '/assets/64.png',
                     sizes: '64x64',
                     type: 'image/png'
                 },
                 {
-                    src: '192.png',
+                    src: '/assets/192.png',
                     sizes: '192x192',
                     type: 'image/png'
                 },
                 {
-                    src: '512.png',
+                    src: '/assets/512.png',
                     sizes: '512x512',
                     type: 'image/png'
                 },
                 {
-                    src: '512.png',
+                    src: '/assets/512.png',
                     sizes: '512x512',
                     type: 'image/png',
                     purpose: 'any'
                 },
                 {
-                    src: '512.png',
+                    src: '/assets/512.png',
                     sizes: '512x512',
                     type: 'image/png',
                     purpose: 'maskable'

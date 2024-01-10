@@ -44,13 +44,13 @@ export default {
   methods: {
     updateAssets() {
       if (this.$colorMode.value === "dark") {
-        this.computedLogo = "dark@" + this.logo;
-        this.computedAvatar = "dark@" + this.avatar;
-        this.computedProfile = "dark@" + this.profile;
+        this.computedLogo = "/assets/dark@" + this.logo;
+        this.computedAvatar = "/assets/dark@" + this.avatar;
+        this.computedProfile = "/assets/dark@" + this.profile;
       } else {
-        this.computedLogo = this.logo;
-        this.computedAvatar = this.avatar;
-        this.computedProfile = this.profile;
+        this.computedLogo = "/assets/" + this.logo;
+        this.computedAvatar = "/assets/" + this.avatar;
+        this.computedProfile = "/assets/" + this.profile;
       }
     },
     toggleModal(state: boolean) {
