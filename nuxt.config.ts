@@ -1,9 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { VitePWA } from 'vite-plugin-pwa'
+
 export default defineNuxtConfig({
     ssr: false,
     modules: [
         '@nuxtjs/color-mode',
-        '@kevinmarrec/nuxt-pwa'
+        '@vite-pwa/nuxt'
     ],
     css: [
         '@fortawesome/fontawesome-svg-core/styles.css'
@@ -17,9 +19,11 @@ export default defineNuxtConfig({
             background_color: 'black',
             orientation: 'portrait',
             lang: 'en'
-        },
-        meta: {
-            title: 'shadowed'
         }
-      }
+    },
+    vite: {
+        plugins: [
+            VitePWA({ registerType: 'autoUpdate' })
+        ]
+    }
 })
