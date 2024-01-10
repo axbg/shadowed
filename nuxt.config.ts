@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineNuxtConfig({
     ssr: false,
@@ -7,6 +6,11 @@ export default defineNuxtConfig({
         '@nuxtjs/color-mode',
         '@vite-pwa/nuxt'
     ],
+    app: {
+        head: {
+            link: [{ rel: 'icon', type: 'image/png', href: '/64.png' }]
+        }
+    },
     css: [
         '@fortawesome/fontawesome-svg-core/styles.css'
     ],
@@ -22,6 +26,11 @@ export default defineNuxtConfig({
             orientation: 'portrait',
             lang: 'en',
             icons: [
+                {
+                    src: '64.png',
+                    sizes: '64x64',
+                    type: 'image/png'
+                },
                 {
                     src: '192.png',
                     sizes: '192x192',
@@ -46,17 +55,6 @@ export default defineNuxtConfig({
                 }
             ]
         },
-        workbox: {
-            runtimeCaching: [
-                {
-                    urlPattern: "/",
-                    handler: 'NetworkFirst',
-                },
-            ]
-        },
-        registerWebManifestInRouteRules: true,
-        devOptions: {
-            enabled: true
-        }
+        registerWebManifestInRouteRules: true
     }
 })
