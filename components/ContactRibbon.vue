@@ -4,9 +4,9 @@
       <font-awesome-icon :icon="faGoogle()" />
     </a>
     <a href="https://encapsulated.dev" title="encapsulated" target="_blank" class="icon">
-      <img v-if="$colorMode.value === 'light'" src="/encapsulated.png" alt="encapsulated"
+      <img v-if="$colorMode.value === 'light'" src="/assets/encapsulated.png" alt="encapsulated"
         @load="handleLoaded()" />
-      <img v-if="$colorMode.value === 'dark'" src="/encapsulated_dark.png" alt="encapsulated"
+      <img v-if="$colorMode.value === 'dark'" src="/assets/encapsulated_dark.png" alt="encapsulated"
         @load="handleLoaded()" />
     </a>
     <a href="https://github.com/axbg" title="Github" target="_blank" class="icon">

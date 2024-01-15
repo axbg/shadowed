@@ -3,7 +3,7 @@
     <div class="modal-content" @click="closeModal">
       <span class="close" @click="closeModal">&times;</span>
       <div class="image-container">
-        <img src="/loading.gif" class="loading">
+        <img src="/assets/loading.gif" class="loading">
         <img loading="lazy" :src="picture" class="full-picture hide-img-loading"
           :class="{ 'show-img-loaded': isLoaded, 'cursor-copy': allowCopy }" @load="imgLoaded()"
           @click="preventDefault($event)" v-on:click="copyToClipboard()" />
