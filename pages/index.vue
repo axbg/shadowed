@@ -14,6 +14,23 @@ import BackToTop from "~/components/BackToTop.vue";
 import DarkMode from "~/components/DarkMode.vue";
 
 export default {
+  mounted() {
+    const body = document.body;
+    let timer: any;
+
+    window.addEventListener('scroll', function () {
+      clearTimeout(timer);
+
+      if (!body.classList.contains('disable-hover')) {
+        body.classList.add('disable-hover')
+      }
+
+      timer = setTimeout(function () {
+        body.classList.remove('disable-hover')
+      }, 250);
+
+    }, false);
+  },
   methods: {
     updateColorMode() {
       if (this.$colorMode.value === "dark") {
@@ -37,6 +54,10 @@ body {
   transition: background-color 1000ms linear;
   background-color: var(--white-color);
   color: var(--black-color);
+}
+
+.disable-hover {
+  pointer-events: none;
 }
 
 .dark-mode body {

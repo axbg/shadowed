@@ -93,7 +93,7 @@ export default {
 }
 
 .dark-mode .hoveredPicture {
-  filter: opacity(80%) grayscale(0%);
+  filter: opacity(100%) grayscale(0%);
 }
 
 .hide-img-loading {
@@ -108,6 +108,10 @@ export default {
   filter: opacity(30%) grayscale(100%);
 }
 
+.dark-mode .outOfFocus {
+  filter: opacity(10%) grayscale(100%);
+}
+
 .photo-content {
   display: block;
   position: absolute;
@@ -118,10 +122,10 @@ export default {
   text-align: center;
   filter: opacity(0);
   transition: all 0.5s ease;
+  user-select: none;
 }
 
 .dark-mode .photo-content {
-  bottom: 0;
   background-color: var(--black-color);
   border: 1px groove var(--white-color);
 }
