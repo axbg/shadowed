@@ -1,6 +1,6 @@
 <template>
   <div class="frame" :class="{ hoveredFrame: hovered }" @mouseover="toggleHover(true)" @mouseleave="toggleHover(false)">
-    <div @click="toggleModal(true)">
+    <div @click="toggleModal(true)" tabindex="0" @keyup.esc="toggleModal(false)" >
       <img class="picture hide-img-loading"
         :class="{ outOfFocus: outOfFocus && !hovered, hoveredPicture: hovered, 'show-img-loaded': isLoaded }"
         @load="imgLoaded()" loading="lazy" :src="thumbnail()" />
@@ -8,7 +8,8 @@
     <div class="photo-content" :class="{ active: hovered }">
       <p>{{ title() }}</p>
     </div>
-    <Modal :picture="pictureSource()" :opened="modalOpened" :allowCopy="true" @closeModal="toggleModal(false)">
+    <Modal :picture="pictureSource()" :opened="modalOpened" :allowCopy="true" @closeModal="toggleModal(false)"
+           tabindex="0" @keyup.esc="toggleModal(false)">
       <div>
         <p class="detail-container">{{ title() }}</p>
       </div>
@@ -145,6 +146,10 @@ export default {
 
 .dark-mode .detail-container {
   border-bottom: 1px groove var(--white-color);
+}
+
+:focus {
+  outline: none;
 }
 
 @media screen and (max-width: 1000px) {
